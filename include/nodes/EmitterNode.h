@@ -15,7 +15,6 @@ public:
 private:
 
 	virtual void		UpdateCurrent( sf::Time dt, CommandQueue& commands );
-	
 	void				EmitParticle( sf::Time dt );
 	
 	sf::Time			m_accumulatedTime;

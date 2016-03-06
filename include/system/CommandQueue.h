@@ -9,12 +9,14 @@
 class CommandQueue
 {
 	public:
+
 		void						Push(const Command_t& command);
 		Command_t					Pop();
 		bool						IsEmpty() const;
 
 		
 	private:
+
 		std::queue<Command_t>			m_queue;
 };
 

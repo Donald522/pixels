@@ -21,6 +21,7 @@ class Player;
 class State
 {
 	public:
+
 		typedef std::unique_ptr<State> Ptr_t;
 
 		struct Context_t
@@ -35,6 +36,7 @@ class State
 
 
 	public:
+
 							State(StateStack& stack, Context_t context);
 		virtual				~State();
 
@@ -44,14 +46,15 @@ class State
 
 
 	protected:
+
 		void				RequestStackPush(States::ID_t stateID);
 		void				RequestStackPop();
 		void				RequestStateClear();
 
 		Context_t			GetContext() const;
 
-
 	private:
+
 		StateStack*			m_stack;
 		Context_t			m_context;
 };

@@ -13,13 +13,16 @@ class SceneNode;
 
 struct Command_t
 {
+
 	typedef std::function<void(SceneNode&, sf::Time)> Action_t;
 
 								Command_t();
 
 	Action_t					action;
 	unsigned int				category;
+
 };
+
 
 template <typename GameObject, typename Function>
 Command_t::Action_t DerivedAction(Function fn)

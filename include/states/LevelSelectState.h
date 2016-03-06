@@ -10,16 +10,17 @@
 
 class LevelSelectState : public State {
 public:
-	LevelSelectState( StateStack& stack, Context_t context);
 
-	virtual void Draw();
-	virtual bool Update( sf::Time dt );
-	virtual bool HandleEvent( const sf::Event& event );
+                    LevelSelectState( StateStack& stack, Context_t context);
+
+    virtual void    Draw();
+    virtual bool    Update( sf::Time dt );
+    virtual bool    HandleEvent( const sf::Event& event );
 
 private:
 
-	sf::Text m_tittleText;
-	sf::Sprite m_backgroundSprite;
+    sf::Text        m_tittleText;
+    sf::Sprite      m_backgroundSprite;
 };
 
 

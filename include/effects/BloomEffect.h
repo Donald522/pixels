@@ -13,17 +13,17 @@
 
 class BloomEffect : public PostEffect {
 public:
-	BloomEffect( );
+                        BloomEffect( );
 
 	virtual void		Apply( const sf::RenderTexture& input, sf::RenderTarget& output );
 
 private:
-	typedef std::array<sf::RenderTexture, 2> RenderTextureArray_t;
 
+    typedef std::array<sf::RenderTexture, 2>    RenderTextureArray_t;
 
 private:
-	void				PrepareTextures( sf::Vector2u size );
 
+	void				PrepareTextures( sf::Vector2u size );
 	void				FilterBright( const sf::RenderTexture& input, sf::RenderTexture& output );
 	void				BlurMultipass( RenderTextureArray_t& renderTextures );
 	void				Blur( const sf::RenderTexture& input, sf::RenderTexture& output, sf::Vector2f offsetFactor );
@@ -32,11 +32,12 @@ private:
 
 
 private:
-	ShaderHolder		m_shaders;
-						 
-	sf::RenderTexture	m_brightnessTexture;
+
+    ShaderHolder            m_shaders;
+    sf::RenderTexture       m_brightnessTexture;
 	RenderTextureArray_t	m_firstPassTextures;
 	RenderTextureArray_t	m_secondPassTextures;
+
 };
 
 #endif // BLOOMEFFECT_H

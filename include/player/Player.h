@@ -13,6 +13,7 @@ class CommandQueue;
 class Player
 {
 	public:
+
 		enum PlayerAction_t
 		{
 			MoveLeft,
@@ -33,6 +34,7 @@ class Player
 
 
 	public:
+
 								Player();
 
 		void					HandleEvent(const sf::Event& event, CommandQueue& commands);
@@ -45,13 +47,13 @@ class Player
 		MissionStatus_t 		GetMissionStatus() const;
 
 	private:
+
 		void					InitializeActions();
 		static bool				IsRealtimeAction(PlayerAction_t action);
 
-
 	private:
-		bool												m_useJoystick;
 
+		bool												m_useJoystick;
 
 		std::map<sf::Keyboard::Key, PlayerAction_t>			m_keyBinding;
 		std::map<size_t, PlayerAction_t>					m_joystickBindings;
@@ -59,4 +61,4 @@ class Player
 		MissionStatus_t 									m_currentMissionStatus;
 };
 
-#endif // BOOK_PLAYER_HPP
+#endif // PLAYER_H

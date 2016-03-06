@@ -10,37 +10,34 @@
 namespace GUI
 {
 
-class Container : public Component
-{
-    public:
-        typedef std::shared_ptr<Container> Ptr;
-            
+    class Container : public Component
+    {
+        public:
 
-	public:
-							Container();
+            typedef std::shared_ptr<Container> Ptr;
 
-        void				pack(Component::Ptr component);
+                                Container();
 
-        virtual bool		IsSelectable() const;
-        virtual void		HandleEvent(const sf::Event& event);
+            void				Pack(Component::Ptr component);
+            virtual bool		IsSelectable() const;
+            virtual void		HandleEvent(const sf::Event& event);
 
+        private:
 
-    private:
+            virtual void		draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-        virtual void		draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
-        bool				hasSelection() const;
-        void				select(std::size_t index);
-        void				selectNext();
-        void				selectPrevious();
+            bool				HasSelection() const;
+            void				Select(std::size_t index);
+            void				SelectNext();
+            void				SelectPrevious();
 
 
-    private:
-        std::vector<Component::Ptr>		m_children;
-        int								mSelectedChild;
+        private:
+            std::vector<Component::Ptr>		m_children;
+            int								m_selectedChild;
 
-};
+    };
 
 }
 
-#endif // BOOK_CONTAINER_HPP
+#endif // CONTAINER_H

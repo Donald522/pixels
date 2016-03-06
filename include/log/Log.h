@@ -5,7 +5,6 @@
 #include <cstdarg>
 #include <ostream>
 
-
 void OpenLog( std::string fileName );
 void CloseLog();
 

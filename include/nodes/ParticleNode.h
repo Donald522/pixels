@@ -1,5 +1,6 @@
 #ifndef PARTICLE_NODE_H
 #define PARTICLE_NODE_H
+
 #include "nodes/SceneNode.h"
 #include "effects/Particle.h"
 #include "resource/ResourceHolder.h"
@@ -9,9 +10,12 @@
 
 #include <deque>
 
+
 class ParticleNode : public SceneNode {
 public:
+
 								ParticleNode( Particle::Type_t type, const TextureHolder& textures );
+
 	void						AddParticle( sf::Vector2f pos );
 
 	Particle::Type_t			GetParticleType() const;

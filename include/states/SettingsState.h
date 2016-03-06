@@ -16,6 +16,7 @@
 class SettingsState : public State
 {
 	public:
+
 										SettingsState(StateStack& stack, Context_t context);
 
 		virtual void					Draw();
@@ -24,11 +25,12 @@ class SettingsState : public State
 
 
 	private:
+
 		void							UpdateLabels();
 		void							AddButtonLabel(Player::PlayerAction_t action, float y, const std::string& text, Context_t context);
 
-
 	private:
+
 		sf::Sprite											m_backgroundSprite;
 		GUI::Container										m_GUIContainer;
 		std::array<GUI::Button::Ptr, Player::ActionCount>	m_bindingButtons;

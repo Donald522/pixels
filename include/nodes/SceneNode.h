@@ -14,8 +14,8 @@
 #include <utility>
 
 
-struct Command_t;
-class CommandQueue;
+struct  Command_t;
+class   CommandQueue;
 
 class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
 {
@@ -24,7 +24,6 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 		typedef std::unique_ptr<SceneNode>			Ptr_t;
 		typedef std::pair<SceneNode*, SceneNode*>	Pair_t;
 
-	public:
 
 		explicit					SceneNode(Category::Type_t category = Category::None);
 
@@ -51,7 +50,6 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 
 		size_t						GetChildCount( ) const;
 
-
 	private:
 
 		virtual void				UpdateCurrent(sf::Time dt, CommandQueue& commands);
@@ -64,14 +62,15 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 		void						DrawBoundingRect(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	private:
-		std::vector<Ptr_t>			m_children;
+
+        std::vector<Ptr_t>			m_children;
 		SceneNode*					m_parent;
 		Category::Type_t			m_defaultCategory;
 
 		bool						m_IsDrawBoundingRect;
 };
 
-bool	collision(const SceneNode& lhs, const SceneNode& rhs);
-float	distance(const SceneNode& lhs, const SceneNode& rhs);
+bool	NodeCollision(const SceneNode& lhs, const SceneNode& rhs);
+float	NodeDistance(const SceneNode& lhs, const SceneNode& rhs);
 
 #endif // SCENENODE_H

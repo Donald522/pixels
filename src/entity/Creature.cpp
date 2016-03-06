@@ -41,10 +41,10 @@ Creature::Creature( SceneGrid* sceneGrid, Type_t type, const TextureHolder& text
 , m_missileDisplay( nullptr )
 {
 	LogInfo( "Create creature: type = " + std::to_string( type ) ); 
-	m_explosion.setFrameSize( sf::Vector2i( 256, 256 ) );
-	m_explosion.setNumFrames( 16 );
-	m_explosion.setRepeating( false );
-	m_explosion.setDuration( sf::seconds( 1 ) );
+	m_explosion.SetFrameSize( sf::Vector2i( 256, 256 ) );
+	m_explosion.SetNumFrames( 16 );
+	m_explosion.SetRepeating( false );
+	m_explosion.SetDuration( sf::seconds( 1 ) );
 
 	CenterOrigin( m_explosion );
 
@@ -132,7 +132,7 @@ sf::FloatRect Creature::GetBoundingRect( ) const
 
 bool Creature::IsMarkedForRemoval( ) const
 {
-	return IsDestroyed( ) && ( m_explosion.isFinished( ) || !m_showExplosion );
+	return IsDestroyed( ) && ( m_explosion.IsFinished( ) || !m_showExplosion );
 }
 
 bool Creature::IsAllied( ) const

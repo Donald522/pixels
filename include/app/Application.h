@@ -15,6 +15,7 @@ class Application : public sf::NonCopyable
 {
 	public:
 								Application();
+
 		void					Run();
 		
 	private:
@@ -38,7 +39,7 @@ class Application : public sf::NonCopyable
 		StateStack				m_stateStack;
 
 		sf::Text				m_statisticsText;
-		sf::Time				mStatisticsUpdateTime;
+        sf::Time				m_statisticsUpdateTime;
 		std::size_t				m_statisticsNumFrames;
 };
 

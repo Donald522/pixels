@@ -22,7 +22,7 @@ Application::Application()
 , m_player()
 , m_stateStack(State::Context_t(m_window, m_textures, m_fonts, m_player))
 , m_statisticsText()
-, mStatisticsUpdateTime()
+, m_statisticsUpdateTime()
 , m_statisticsNumFrames(0)
 {
 	m_window.setKeyRepeatEnabled(false);
@@ -110,13 +110,13 @@ void Application::Render()
 
 void Application::UpdateStatistics(sf::Time dt)
 {
-	mStatisticsUpdateTime += dt;
+	m_statisticsUpdateTime += dt;
 	++m_statisticsNumFrames;
-	if (mStatisticsUpdateTime >= sf::seconds(1.0f))
+	if (m_statisticsUpdateTime >= sf::seconds(1.0f))
 	{
 		m_statisticsText.setString("FPS: " + ToString(m_statisticsNumFrames));
 		
-		mStatisticsUpdateTime -= sf::seconds(1.0f);
+		m_statisticsUpdateTime -= sf::seconds(1.0f);
 		m_statisticsNumFrames = 0;
 	}
 }

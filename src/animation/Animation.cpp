@@ -5,90 +5,90 @@
 
 
 Animation::Animation()
-: mSprite()
-, mFrameSize()
-, mNumFrames(0)
-, mCurrentFrame(0)
-, mDuration(sf::Time::Zero)
-, mElapsedTime(sf::Time::Zero)
-, mRepeat(false)
+: m_sprite()
+, m_frameSize()
+, m_numFrames(0)
+, m_currentFrame(0)
+, m_duration(sf::Time::Zero)
+, m_elapsedTime(sf::Time::Zero)
+, m_repeat(false)
 {
 }
 
 Animation::Animation(const sf::Texture& texture)
-: mSprite(texture)
-, mFrameSize()
-, mNumFrames(0)
-, mCurrentFrame(0)
-, mDuration(sf::Time::Zero)
-, mElapsedTime(sf::Time::Zero)
-, mRepeat(false)
+: m_sprite(texture)
+, m_frameSize()
+, m_numFrames(0)
+, m_currentFrame(0)
+, m_duration(sf::Time::Zero)
+, m_elapsedTime(sf::Time::Zero)
+, m_repeat(false)
 {
 }
 
-void Animation::setTexture(const sf::Texture& texture)
+void Animation::SetTexture(const sf::Texture& texture)
 {
-	mSprite.setTexture(texture);
+    m_sprite.setTexture(texture);
 }
 
-const sf::Texture* Animation::getTexture() const
+const sf::Texture* Animation::GetTexture() const
 {
-	return mSprite.getTexture();
+    return m_sprite.getTexture();
 }
 
-void Animation::setFrameSize(sf::Vector2i frameSize)
+void Animation::SetFrameSize(sf::Vector2i frameSize)
 {
-	mFrameSize = frameSize;
+    m_frameSize = frameSize;
 }
 
-sf::Vector2i Animation::getFrameSize() const
+sf::Vector2i Animation::GetFrameSize() const
 {
-	return mFrameSize;
+    return m_frameSize;
 }
 
-void Animation::setNumFrames(std::size_t numFrames)
+void Animation::SetNumFrames(std::size_t numFrames)
 {
-	mNumFrames = numFrames;
+    m_numFrames = numFrames;
 }
 
-std::size_t Animation::getNumFrames() const
+std::size_t Animation::GetNumFrames() const
 {
-	return mNumFrames;
+    return m_numFrames;
 }
 
-void Animation::setDuration(sf::Time duration)
+void Animation::SetDuration(sf::Time duration)
 {
-	mDuration = duration;
+    m_duration = duration;
 }
 
-sf::Time Animation::getDuration() const
+sf::Time Animation::GetDuration() const
 {
-	return mDuration;
+    return m_duration;
 }
 
-void Animation::setRepeating(bool flag)
+void Animation::SetRepeating(bool flag)
 {
-	mRepeat = flag;
+    m_repeat = flag;
 }
 
 bool Animation::isRepeating() const
 {
-	return mRepeat;
+    return m_repeat;
 }
 
-void Animation::restart()
+void Animation::Restart()
 {
-	mCurrentFrame = 0;
+    m_currentFrame = 0;
 }
 
-bool Animation::isFinished() const
+bool Animation::IsFinished() const
 {
-	return mCurrentFrame >= mNumFrames;
+    return m_currentFrame >= m_numFrames;
 }
 
 sf::FloatRect Animation::GetLocalBounds() const
 {
-	return sf::FloatRect(getOrigin(), static_cast<sf::Vector2f>(getFrameSize()));
+    return sf::FloatRect(getOrigin(), static_cast<sf::Vector2f>(GetFrameSize()));
 }
 
 sf::FloatRect Animation::GetGlobalBounds() const
@@ -98,17 +98,17 @@ sf::FloatRect Animation::GetGlobalBounds() const
 
 void Animation::Update(sf::Time dt)
 {
-	sf::Time timePerFrame = mDuration / static_cast<float>(mNumFrames);
-	mElapsedTime += dt;
+    sf::Time timePerFrame = m_duration / static_cast<float>(m_numFrames);
+    m_elapsedTime += dt;
 
-	sf::Vector2i textureBounds(mSprite.getTexture()->getSize());
-	sf::IntRect textureRect = mSprite.getTextureRect();
+    sf::Vector2i textureBounds(m_sprite.getTexture()->getSize());
+    sf::IntRect textureRect = m_sprite.getTextureRect();
 
-	if (mCurrentFrame == 0)
-		textureRect = sf::IntRect(0, 0, mFrameSize.x, mFrameSize.y);
+    if (m_currentFrame == 0)
+        textureRect = sf::IntRect(0, 0, m_frameSize.x, m_frameSize.y);
 	
 	// While we have a frame to process
-	while (mElapsedTime >= timePerFrame && (mCurrentFrame <= mNumFrames || mRepeat))
+    while (m_elapsedTime >= timePerFrame && (m_currentFrame <= m_numFrames || m_repeat))
 	{
 		// Move the texture rect left
 		textureRect.left += textureRect.width;
@@ -122,25 +122,25 @@ void Animation::Update(sf::Time dt)
 		}
 
 		// And progress to next frame
-		mElapsedTime -= timePerFrame;
-		if (mRepeat)
+        m_elapsedTime -= timePerFrame;
+        if (m_repeat)
 		{
-			mCurrentFrame = (mCurrentFrame + 1) % mNumFrames;
+            m_currentFrame = (m_currentFrame + 1) % m_numFrames;
 
-			if (mCurrentFrame == 0)
-				textureRect = sf::IntRect(0, 0, mFrameSize.x, mFrameSize.y);
+            if (m_currentFrame == 0)
+                textureRect = sf::IntRect(0, 0, m_frameSize.x, m_frameSize.y);
 		}
 		else
 		{
-			mCurrentFrame++;
+            m_currentFrame++;
 		}
 	}
 
-	mSprite.setTextureRect(textureRect);
+    m_sprite.setTextureRect(textureRect);
 }
 
 void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();
-	target.draw(mSprite, states);
+    target.draw(m_sprite, states);
 }

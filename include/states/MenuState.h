@@ -13,20 +13,19 @@
 class MenuState : public State
 {
 	public:
-		
 								MenuState(StateStack& stack, Context_t context);
 
 		virtual void			Draw();
 		virtual bool			Update(sf::Time dt);
 		virtual bool			HandleEvent(const sf::Event& event);
 
-
 	private:
+
 		sf::Time				m_effectTime;
 
 		sf::Text				m_gameName;
 		sf::Sprite				m_backgroundSprite;
-		GUI::Container			mGUIContainer;
+        GUI::Container			m_guiContainer;
 
 		sf::RenderTexture		m_renderTexture;
 		BloomEffect				m_bloomEffect;
