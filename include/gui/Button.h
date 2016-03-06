@@ -21,39 +21,38 @@ namespace GUI
 class Button : public Component
 {
     public:
+
         typedef std::shared_ptr<Button>		Ptr;
         typedef std::function<void()>		Callback;
 
+                                Button(const FontHolder& fonts, const TextureHolder& textures);
 
-	public:
-								Button(const FontHolder& fonts, const TextureHolder& textures);
-
-        void					setCallback(Callback callback);
-        void					setText(const std::string& text);
-        void					setToggle(bool flag);
+        void					SetCallback(Callback callback);
+        void					SetText(const std::string& text);
+        void					SetToggle(bool flag);
 
         virtual bool			IsSelectable() const;
-        virtual void			select();
-        virtual void			deselect();
+        virtual void			Select();
+        virtual void			Deselect();
 
-        virtual void			activate();
-        virtual void			deactivate();
+        virtual void			Activate();
+        virtual void			Deactivate();
 
         virtual void			HandleEvent(const sf::Event& event);
 
-
     private:
+
         virtual void			draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-
     private:
-        Callback				mCallback;
-        const sf::Texture&		mNormalTexture;
-        const sf::Texture&		mSelectedTexture;
-        const sf::Texture&		mPressedTexture;
+
+        Callback				m_callback;
+        const sf::Texture&		m_normalTexture;
+        const sf::Texture&		m_selectedTexture;
+        const sf::Texture&		m_pressedTexture;
         sf::Sprite				m_sprite;
         sf::Text				m_text;
-        bool					mIsToggle;
+        bool					m_isToggle;
 };
 
 }

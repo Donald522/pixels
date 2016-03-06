@@ -55,7 +55,7 @@ namespace Shaders
 }
 
 template <typename Resource, typename Identifier>
-class ResourceHolder;
+class   ResourceHolder;
 
 typedef ResourceHolder<sf::Texture, Textures::ID_t>		TextureHolder;
 typedef ResourceHolder<sf::Font, Fonts::ID_t>			FontHolder;

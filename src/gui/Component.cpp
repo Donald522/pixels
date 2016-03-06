@@ -4,8 +4,8 @@ namespace GUI
 {
 
 Component::Component()
-: mIsSelected(false)
-, mIsActive(false)
+: m_isSelected(false)
+, m_isActive(false)
 {
 }
 
@@ -15,32 +15,32 @@ Component::~Component()
 
 bool Component::IsSelected() const
 {
-	return mIsSelected;
+	return m_isSelected;
 }
 
-void Component::select()
+void Component::Select()
 {
-	mIsSelected = true;
+	m_isSelected = true;
 }
 
-void Component::deselect()
+void Component::Deselect()
 {
-	mIsSelected = false;
+	m_isSelected = false;
 }
 
-bool Component::isActive() const
+bool Component::IsActive() const
 {
-	return mIsActive;
+	return m_isActive;
 }
 
-void Component::activate()
+void Component::Activate()
 {
-	mIsActive = true;
+	m_isActive = true;
 }
 
-void Component::deactivate()
+void Component::Deactivate()
 {
-	mIsActive = false;
+	m_isActive = false;
 }
 
 }

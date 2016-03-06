@@ -14,6 +14,7 @@ class SceneGrid;
 class Pickup : public Entity
 {
 	public:
+
 		enum Type_t
 		{
 			HealthRefill,
@@ -21,25 +22,23 @@ class Pickup : public Entity
 			FireSpread,
 			FireRate,
 			TypeCount
-		};
+        };
 
+                                    Pickup(SceneGrid* sceneGrid, Type_t type, const TextureHolder& textures);
 
-	public:
-		Pickup( SceneGrid* sceneGrid, Type_t type, const TextureHolder& textures );
+        virtual Category::Type_t	GetCategory() const;
+        virtual sf::FloatRect       GetBoundingRect() const;
 
-		virtual Category::Type_t	GetCategory( ) const;
-		virtual sf::FloatRect	GetBoundingRect() const;
-
-		void 					Apply(Creature& player) const;
-
+        void                        Apply(Creature& player) const;
 
 	protected:
-		virtual void			DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
+        virtual void                DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	private:
-		Type_t 					m_type;
-		sf::Sprite				m_sprite;
+
+        Type_t                      m_type;
+        sf::Sprite                  m_sprite;
 };
 
 #endif // PICKUP_H

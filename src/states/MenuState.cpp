@@ -11,7 +11,7 @@
 MenuState::MenuState(StateStack& stack, Context_t context)
 : State(stack, context)
 , m_renderTexture()
-, mGUIContainer()
+, m_guiContainer()
 , m_effectTime(sf::Time::Zero)
 {
 	std::cout << "[STATE]: menu\n";
@@ -20,8 +20,8 @@ MenuState::MenuState(StateStack& stack, Context_t context)
 
 	auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	playButton->setPosition(100, 300);
-	playButton->setText("Play");
-	playButton->setCallback([this] ()
+    playButton->SetText("Play");
+    playButton->SetCallback([this] ()
 	{
 		RequestStackPop();
 		RequestStackPush(States::Game);
@@ -30,23 +30,23 @@ MenuState::MenuState(StateStack& stack, Context_t context)
 
 	auto settingsButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	settingsButton->setPosition(100, 350);
-	settingsButton->setText("Settings");
-	settingsButton->setCallback([this] ()
+    settingsButton->SetText("Settings");
+    settingsButton->SetCallback([this] ()
 	{
 		RequestStackPush(States::Settings);
 	});
 
 	auto exitButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	exitButton->setPosition(100, 400);
-	exitButton->setText("Exit");
-	exitButton->setCallback([this] ()
+    exitButton->SetText("Exit");
+    exitButton->SetCallback([this] ()
 	{
 		RequestStackPop();
 	});
 
-	mGUIContainer.pack(playButton);
-	mGUIContainer.pack(settingsButton);
-	mGUIContainer.pack(exitButton);
+    m_guiContainer.Pack(playButton);
+    m_guiContainer.Pack(settingsButton);
+    m_guiContainer.Pack(exitButton);
 
 
 	m_gameName.setFont( context.fonts->Get( Fonts::Main ) );
@@ -72,7 +72,7 @@ void MenuState::Draw()
 		m_renderTexture.clear();
 		m_renderTexture.setView( window.getDefaultView() );
 		m_renderTexture.draw( m_backgroundSprite );
-		m_renderTexture.draw( mGUIContainer );
+        m_renderTexture.draw( m_guiContainer );
 		m_renderTexture.draw( m_gameName );
 		m_renderTexture.display();
 
@@ -83,7 +83,7 @@ void MenuState::Draw()
 	{
 		window.setView( window.getDefaultView( ) );
 		window.draw( m_backgroundSprite );
-		window.draw( mGUIContainer );
+        window.draw( m_guiContainer );
 		window.draw( m_gameName );
 
 	}
@@ -115,6 +115,6 @@ bool MenuState::Update(sf::Time dt)
 
 bool MenuState::HandleEvent(const sf::Event& event)
 {
-	mGUIContainer.HandleEvent(event);
+    m_guiContainer.HandleEvent(event);
 	return false;
 }

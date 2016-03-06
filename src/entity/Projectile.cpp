@@ -22,12 +22,12 @@ Projectile::Projectile( SceneGrid* sceneGrid, Type_t type, const TextureHolder& 
 : Entity( sceneGrid, 1 )
 , m_type(type)
 , m_sprite( textures.Get( Table[type].texture ), Table[type].textureRect )
-, mTargetDirection()
+, m_targetDirection()
 {
 	CenterOrigin(m_sprite);
 
 	// Add particle system for missiles
-	if ( isGuided( ) )
+	if ( IsGuided( ) )
 	{
 		m_sprite.setColor( sf::Color( 200, 200, 255 ) );
 		std::unique_ptr<EmitterNode> smoke( new EmitterNode( Particle::Smoke ) );
@@ -41,13 +41,13 @@ Projectile::Projectile( SceneGrid* sceneGrid, Type_t type, const TextureHolder& 
 }
 
 
-void Projectile::guideTowards(sf::Vector2f position)
+void Projectile::GuideTowards(sf::Vector2f position)
 {
-	assert(isGuided());
-	mTargetDirection = VectorUnit(position - GetWorldPosition());
+	assert(IsGuided());
+	m_targetDirection = VectorUnit(position - GetWorldPosition());
 }
 
-bool Projectile::isGuided() const
+bool Projectile::IsGuided() const
 {
 	return m_type == Missile;
 }
@@ -55,11 +55,11 @@ bool Projectile::isGuided() const
 void Projectile::UpdateCurrent(sf::Time dt, CommandQueue& commands)
 {
 	const float approachRate = 200.f;
-	if (isGuided())
+	if (IsGuided())
 	{
 		const float approachRate = 200.f;
 
-		sf::Vector2f newVelocity = VectorUnit(approachRate * dt.asSeconds() * mTargetDirection + GetVelocity());
+		sf::Vector2f newVelocity = VectorUnit(approachRate * dt.asSeconds() * m_targetDirection + GetVelocity());
 		newVelocity *= GetSpeed();
 		float angle = std::atan2(newVelocity.y, newVelocity.x);
 

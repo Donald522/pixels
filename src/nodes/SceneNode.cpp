@@ -143,7 +143,7 @@ void SceneNode::CheckSceneCollision(SceneNode& sceneGraph, std::set<Pair_t>& col
 
 void SceneNode::CheckNodeCollision(SceneNode& node, std::set<Pair_t>& collisionPairs)
 {
-	if (this != &node && collision(*this, node) && !IsDestroyed() && !node.IsDestroyed())
+	if (this != &node && NodeCollision(*this, node) && !IsDestroyed() && !node.IsDestroyed())
 		collisionPairs.insert(std::minmax(this, &node));
 
 	for (Ptr_t& child : m_children)
@@ -185,12 +185,12 @@ void SceneNode::SwitchDrawBoundingRect()
 	SetDrawBoundingRect( !m_IsDrawBoundingRect );
 }
 
-bool collision(const SceneNode& lhs, const SceneNode& rhs)
+bool NodeCollision(const SceneNode& lhs, const SceneNode& rhs)
 {
 	return lhs.GetBoundingRect().intersects(rhs.GetBoundingRect());
 }
 
-float distance(const SceneNode& lhs, const SceneNode& rhs)
+float NodeDistance(const SceneNode& lhs, const SceneNode& rhs)
 {
 	return VectorLength(lhs.GetWorldPosition() - rhs.GetWorldPosition());
 }

@@ -13,23 +13,22 @@
 
 class PixelateEffect : public PostEffect {
 public:
-	PixelateEffect( );
+
+                        PixelateEffect( );
 
 	virtual void		Apply( const sf::RenderTexture& input, sf::RenderTarget& output );
-
 	void				SetPixelThreshold( float factor );
 
 private:
 
 	void				PrepareTextures( sf::Vector2u size );
-
 	void				Pixelate( const sf::RenderTexture& input, sf::RenderTarget& output );
 
 private:
+
 	float				m_factor;
 	ShaderHolder		m_shaders;
-
-	sf::RenderTexture		m_pixelateTexture;
+    sf::RenderTexture	m_pixelateTexture;
 };
 
 #endif // PIXELATE_EFFECT_H

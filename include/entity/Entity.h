@@ -8,6 +8,7 @@ class SceneGrid;
 
 class Entity : public SceneNode
 {
+    //TODO: move friend out?
 	friend class SceneGrid;
 
 	public:
@@ -31,11 +32,10 @@ class Entity : public SceneNode
 	protected:
 
 		virtual void		UpdateCurrent(sf::Time dt, CommandQueue& commands);
-
 		SceneGrid*			m_sceneGrid;
 
-
 	private:
+
 		sf::Vector2f		m_velocity;
 		int					m_hitpoints;
 };

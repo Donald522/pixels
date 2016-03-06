@@ -25,6 +25,7 @@ namespace sf
 class StateStack : private sf::NonCopyable
 {
 	public:
+
 		enum StateStackAction_t
 		{
 			Push,
@@ -34,6 +35,7 @@ class StateStack : private sf::NonCopyable
 
 
 	public:		
+
 		explicit			StateStack(State::Context_t context);
 
 		template <typename T>
@@ -51,11 +53,13 @@ class StateStack : private sf::NonCopyable
 
 
 	private:
+
 		State::Ptr_t		CreateState(States::ID_t stateID);
 		void				ApplyPendingChanges();
 
 
 	private:
+
 		struct PendingChange_t
 		{
 			explicit						PendingChange_t(StateStackAction_t action, States::ID_t stateID = States::None);

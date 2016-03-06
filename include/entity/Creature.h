@@ -10,8 +10,8 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
-class SceneGrid;
 
+class SceneGrid;
 
 class Creature : public Entity {
 public:
@@ -25,7 +25,8 @@ public:
 	};
 
 public:
-	Creature( SceneGrid* sceneGrid, Type_t type, const TextureHolder& textures, const FontHolder& fonts );
+
+                                Creature( SceneGrid* sceneGrid, Type_t type, const TextureHolder& textures, const FontHolder& fonts );
 
 	virtual Category::Type_t	GetCategory( ) const;
 	virtual sf::FloatRect		GetBoundingRect( ) const;
@@ -45,6 +46,7 @@ public:
 
 
 private:
+
 	virtual void				DrawCurrent( sf::RenderTarget& target, sf::RenderStates states ) const;
 	virtual void 				UpdateCurrent( sf::Time dt, CommandQueue& commands );
 	void						UpdateMovementPattern( sf::Time dt );
@@ -52,13 +54,14 @@ private:
 	void						CheckProjectileLaunch( sf::Time dt, CommandQueue& commands );
 
 	void						CreateBullets( SceneNode& node, const TextureHolder& textures ) const;
-	void						CreateProjectile( SceneNode& node, Projectile::Type_t type, float xOffset, float yOffset, const TextureHolder& textures)const;
+    void						CreateProjectile( SceneNode& node, Projectile::Type_t type, float xOffset, float yOffset, const TextureHolder& textures) const;
 	void						CreatePickup( SceneNode& node, const TextureHolder& textures ) const;
 
 	void						UpdateTexts( );
 
 
 private:
+
 	Type_t						m_type;
 	sf::Sprite					m_sprite;
 	Animation					m_explosion;

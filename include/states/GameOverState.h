@@ -11,14 +11,15 @@
 class GameOverState : public State
 {
 	public:
+
 							GameOverState(StateStack& stack, Context_t context);
 
 		virtual void		Draw();
 		virtual bool		Update(sf::Time dt);
 		virtual bool		HandleEvent(const sf::Event& event);
 
-
 	private:
+
 		sf::Text			m_gameOverText;
 		sf::Time			m_elapsedTime;
 };

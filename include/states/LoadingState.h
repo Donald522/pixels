@@ -1,7 +1,7 @@
 #ifndef LOADING_STATE_H
 #define LOADING_STATE_H
-#include "State.h"
 
+#include "State.h"
 #include <SFML\Graphics\RectangleShape.hpp>
 #include <SFML\Graphics\Text.hpp>
 

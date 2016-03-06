@@ -11,6 +11,7 @@
 class PauseState : public State
 {
 	public:
+
 							PauseState(StateStack& stack, Context_t context);
 
 		virtual void		Draw();
@@ -19,9 +20,10 @@ class PauseState : public State
 
 
 	private:
+
 		sf::Sprite			m_backgroundSprite;
 		sf::Text			m_pausedText;
-		GUI::Container 		mGUIContainer;
+        GUI::Container 		m_guiContainer;
 };
 
 #endif // PAUSESTATE_H

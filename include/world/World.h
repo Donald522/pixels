@@ -32,7 +32,9 @@ namespace sf
 class World : private sf::NonCopyable
 {
 	public:
+
 		explicit							World(sf::RenderTarget& outTarget, FontHolder& fonts);
+
 		void								Update(sf::Time dt);
 		void								Draw();
 		
@@ -61,9 +63,8 @@ class World : private sf::NonCopyable
 		sf::FloatRect						GetViewBounds() const;
 		sf::FloatRect						GetBattlefieldBounds() const;
 
-
-
 	private:
+
 		enum Layer_t
 		{
 			Background,

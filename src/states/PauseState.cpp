@@ -12,7 +12,7 @@ PauseState::PauseState(StateStack& stack, Context_t context)
 : State(stack, context)
 , m_backgroundSprite()
 , m_pausedText()
-, mGUIContainer()
+, m_guiContainer()
 {
 	sf::Font& font = context.fonts->Get(Fonts::Main);
 	sf::Vector2f windowSize(context.window->getSize());
@@ -25,23 +25,23 @@ PauseState::PauseState(StateStack& stack, Context_t context)
 
 	auto returnButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	returnButton->setPosition(0.5f * windowSize.x - 100, 0.4f * windowSize.y + 75);
-	returnButton->setText("Return");
-	returnButton->setCallback([this] ()
+    returnButton->SetText("Return");
+    returnButton->SetCallback([this] ()
 	{
 		RequestStackPop();
 	});
 
 	auto backToMenuButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	backToMenuButton->setPosition(0.5f * windowSize.x - 100, 0.4f * windowSize.y + 125);
-	backToMenuButton->setText("Back to menu");
-	backToMenuButton->setCallback([this] ()
+    backToMenuButton->SetText("Back to menu");
+    backToMenuButton->SetCallback([this] ()
 	{
 		RequestStateClear();
 		RequestStackPush(States::Menu);
 	});
 
-	mGUIContainer.pack(returnButton);
-	mGUIContainer.pack(backToMenuButton);
+    m_guiContainer.Pack(returnButton);
+    m_guiContainer.Pack(backToMenuButton);
 }
 
 void PauseState::Draw()
@@ -55,7 +55,7 @@ void PauseState::Draw()
 
 	window.draw(backgroundShape);
 	window.draw(m_pausedText);
-	window.draw(mGUIContainer);
+    window.draw(m_guiContainer);
 }
 
 bool PauseState::Update(sf::Time)
@@ -65,6 +65,6 @@ bool PauseState::Update(sf::Time)
 
 bool PauseState::HandleEvent(const sf::Event& event)
 {
-	mGUIContainer.HandleEvent(event);
+    m_guiContainer.HandleEvent(event);
 	return false;
 }

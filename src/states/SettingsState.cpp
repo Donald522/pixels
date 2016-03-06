@@ -23,10 +23,10 @@ SettingsState::SettingsState(StateStack& stack, Context_t context)
 
 	auto backButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	backButton->setPosition(80.f, 620.f);
-	backButton->setText("Back");
-	backButton->setCallback(std::bind(&SettingsState::RequestStackPop, this));
+    backButton->SetText("Back");
+    backButton->SetCallback(std::bind(&SettingsState::RequestStackPop, this));
 
-	m_GUIContainer.pack(backButton);
+	m_GUIContainer.Pack(backButton);
 }
 
 void SettingsState::Draw()
@@ -49,13 +49,13 @@ bool SettingsState::HandleEvent(const sf::Event& event)
 	// Iterate through all key binding buttons to see if they are being pressed, waiting for the user to enter a key
 	for (std::size_t action = 0; action < Player::ActionCount; ++action)
 	{
-		if (m_bindingButtons[action]->isActive())
+        if (m_bindingButtons[action]->IsActive())
 		{
 			isKeyBinding = true;
 			if (event.type == sf::Event::KeyReleased)
 			{
 				GetContext().player->AssignKey(static_cast<Player::PlayerAction_t>(action), event.key.code);
-				m_bindingButtons[action]->deactivate();
+                m_bindingButtons[action]->Deactivate();
 			}
 			break;
 		}
@@ -85,12 +85,12 @@ void SettingsState::AddButtonLabel(Player::PlayerAction_t action, float y, const
 {
 	m_bindingButtons[action] = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	m_bindingButtons[action]->setPosition(80.f, y);
-	m_bindingButtons[action]->setText(text);
-	m_bindingButtons[action]->setToggle(true);
+    m_bindingButtons[action]->SetText(text);
+    m_bindingButtons[action]->SetToggle(true);
 
 	m_bindingLabels[action] = std::make_shared<GUI::Label>("", *context.fonts);
 	m_bindingLabels[action]->setPosition(300.f, y + 15.f);
 
-	m_GUIContainer.pack(m_bindingButtons[action]);
-	m_GUIContainer.pack(m_bindingLabels[action]);
+	m_GUIContainer.Pack(m_bindingButtons[action]);
+	m_GUIContainer.Pack(m_bindingLabels[action]);
 }

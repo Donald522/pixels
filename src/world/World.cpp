@@ -410,7 +410,7 @@ void World::GuideMissiles()
 	missileGuider.action = DerivedAction<Projectile>([this] (Projectile& missile, sf::Time)
 	{
 		// Ignore unguided bullets
-		if (!missile.isGuided())
+        if (!missile.IsGuided())
 			return;
 
 		float minDistance = std::numeric_limits<float>::max();
@@ -419,7 +419,7 @@ void World::GuideMissiles()
 		// Find closest enemy
 		for ( Creature* enemy : m_activeEnemies )
 		{
-			float enemyDistance = distance(missile, *enemy);
+            float enemyDistance = NodeDistance(missile, *enemy);
 
 			if (enemyDistance < minDistance)
 			{
@@ -429,7 +429,7 @@ void World::GuideMissiles()
 		}
 
 		if (closestEnemy)
-			missile.guideTowards(closestEnemy->GetWorldPosition());
+            missile.GuideTowards(closestEnemy->GetWorldPosition());
 	});
 
 	// Push commands, reset active enemies

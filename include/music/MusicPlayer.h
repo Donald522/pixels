@@ -13,6 +13,7 @@ class MusicPlayer : private sf::NonCopyable{
 public:
 
 			MusicPlayer();
+
 	void	Play( Music::ID_t theme );
 	void	Stop();
 
