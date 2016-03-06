@@ -1,0 +1,9 @@
+alien1 = 247 0 114 200
+alien2 = 0 0 125 238
+bgbattleship = 126 0 120 120
+Bullet = 208 121 3 14
+FireRate = 126 121 40 40
+FireSpread = 126 162 40 40
+HealthRefill = 167 121 40 40
+Missile = 126 203 15 32
+MissileRefill = 167 162 40 40
