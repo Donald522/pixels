@@ -1,11 +1,34 @@
 language: cpp
 compiler: gcc
 os: linux
-before_script:
-  - cmake .
 
-script: make
+
 
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install libsfml-dev
+
+before_script:
+    - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=DEBUG -DCMAKE_CXX_FLAGS="-std=c++11 -O3" -DSFML_ROOT="deps/SFML/installation" .
+
+install:
+    - sudo apt-get install libglew-dev
+    - sudo apt-get install libopenal-dev
+    - sudo apt-get install libsndfile-dev
+    - cd deps/SFML && mkdir build && cd build
+    - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_SHARED_LIBS=0 -DCMAKE_CXX_FLAGS="-std=c++11 -Wno-c++11-narrowing" -DCMAKE_INSTALL_PREFIX=../installation ../
+    - make install
+    - cd ../../..
+
+script:
+    - make
+
+after_script:
+    - true
+
+branches:
+  only:
+    - master
+
+notifications:
+    email: false
