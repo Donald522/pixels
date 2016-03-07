@@ -7,4 +7,5 @@ before_script:
 script: make
 
 before_install:
+  - sudo apt-get update
   - sudo apt-get install libsfml-dev
