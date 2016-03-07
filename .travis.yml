@@ -12,6 +12,7 @@ before_script:
     - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=DEBUG -DSFML_ROOT="deps/SFML/installation" .
 
 install:
+    - sudo apt-get install gcc-4.8
     - sudo apt-get install libglew-dev
     - sudo apt-get install libopenal-dev
     - sudo apt-get install libsndfile-dev
