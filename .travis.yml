@@ -9,7 +9,6 @@ before_install:
 #  - sudo apt-get install libsfml-dev
 
 before_script:
-    - mkdir deps/SFML/installation
     - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=DEBUG -DSFML_ROOT="deps/SFML/installation" .
 
 install:
