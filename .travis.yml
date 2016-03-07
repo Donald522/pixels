@@ -26,9 +26,9 @@ script:
 after_script:
     - true
 
-branches:
-  only:
-    - master
+#branches:
+#  only:
+#    - master
 
 notifications:
     email: false
