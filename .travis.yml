@@ -9,6 +9,7 @@ before_install:
 #  - sudo apt-get install libsfml-dev
 
 before_script:
+    - mkdir deps/SFML/installation
     - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=DEBUG -DSFML_ROOT="deps/SFML/installation" .
 
 install:
@@ -25,8 +26,8 @@ install:
     - sudo apt-get install libxcb-randr0-dev
     - sudo apt-get install libudev-dev 
     - cd deps/SFML && mkdir build && cd build
-    - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_SHARED_LIBS=0 -DCMAKE_INSTALL_PREFIX=../installation ../
-    - make install
+    - cmake -G "Unix Makefiles" -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=../installation ../
+    - make -j8 && make install
     - cd ../../..
 
 script:
