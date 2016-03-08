@@ -17,6 +17,8 @@ public:
 	void	Play( Music::ID_t theme );
 	void	Stop();
 
+    void    SetLoop(bool loop);
+
 	void	SetPaused( bool paused );
 	void	SetVolume( float volume );
 

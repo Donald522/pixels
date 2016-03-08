@@ -288,46 +288,6 @@ void World::AddEnemies()
 {
 	// Add enemies to the spawn point container
 
-	//AddEnemy( Creature::AlienTestBoss, 0.0f, 700.0f );
-/*
-	AddEnemy(Creature::AlienEasy, +200.f, 710.f);
-	AddEnemy(Creature::AlienEasy, +90.f, 900.f);
-	AddEnemy(Creature::AlienEasy, -90.f, 910.f );
-	AddEnemy(Creature::AlienEasy, -200.f, 900.f );
-
-
-	AddEnemy(Creature::AlienMedium, -70.f, 1400.f);
-	AddEnemy(Creature::AlienMedium, -70.f, 1600.f);
-	AddEnemy(Creature::AlienMedium,  70.f, 1400.f);
-	AddEnemy(Creature::AlienMedium,  70.f, 1600.f);
-
-
-	AddEnemy( Creature::AlienMedium, +120.f, 1900.f );
-	AddEnemy( Creature::AlienMedium, -120.f, 1900.f );
-
-	AddEnemy( Creature::AlienMedium, +120.f, 2100.f );
-	AddEnemy( Creature::AlienMedium, 0.f, 2100.f );
-	AddEnemy( Creature::AlienMedium, -120.f, 2100.f );
-
-	AddEnemy( Creature::AlienMedium, +100.f, 2400.f );
-	AddEnemy( Creature::AlienMedium, -100.f, 2400.f );
-
-
-	AddEnemy( Creature::AlienEasy, -90.f, 2550.f );
-	AddEnemy( Creature::AlienMedium, -200.f, 2560.f );
-	AddEnemy( Creature::AlienMedium, +120.f, 2600.f );
-
-
-	AddEnemy( Creature::AlienEasy, -120.f, 2750.f );
-	AddEnemy( Creature::AlienMedium, -20.f, 2790.f );
-	AddEnemy( Creature::AlienMedium, +80.f, 2750.f );
-
-
-	AddEnemy( Creature::AlienEasy, -200.f, 2900 );
-	AddEnemy( Creature::AlienMedium, +200.f, 2900.f );
-	AddEnemy( Creature::AlienMedium, +0.f, 2940.f );
-*/
-
 	LogInfo( "Adding enemies");
 	float startPos = 700.0f;
 	
