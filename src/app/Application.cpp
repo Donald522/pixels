@@ -20,11 +20,13 @@ Application::Application()
 , m_textures()
 , m_fonts()
 , m_player()
-, m_stateStack(State::Context_t(m_window, m_textures, m_fonts, m_player))
+, m_musicPlayer()
+, m_stateStack(State::Context_t(m_window, m_textures, m_fonts, m_player, m_musicPlayer))
 , m_statisticsText()
 , m_statisticsUpdateTime()
 , m_statisticsNumFrames(0)
 {
+    State::Context_t(m_window, m_textures, m_fonts, m_player, m_musicPlayer);
 	m_window.setKeyRepeatEnabled(false);
 
 	m_fonts.Load(Fonts::Main, 					"Data/Sansation.ttf");

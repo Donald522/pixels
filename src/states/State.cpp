@@ -4,11 +4,12 @@
 
 
 
-State::Context_t::Context_t(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts, Player& player)
+State::Context_t::Context_t(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts, Player& player, MusicPlayer& music)
 : window(&window)
 , textures(&textures)
 , fonts(&fonts)
 , player(&player)
+, music(&music)
 {
 }
 

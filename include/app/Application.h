@@ -5,10 +5,13 @@
 #include "resource/ResourceIdentifiers.h"
 #include "player/Player.h"
 #include "states/StateStack.h"
+#include "music/MusicPlayer.h"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
+
+
 
 
 class Application : public sf::NonCopyable
@@ -35,6 +38,8 @@ class Application : public sf::NonCopyable
 		TextureHolder			m_textures;
 	  	FontHolder				m_fonts;
 		Player					m_player;
+        MusicPlayer             m_musicPlayer;
+
 
 		StateStack				m_stateStack;
 

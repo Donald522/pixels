@@ -7,8 +7,8 @@ MusicPlayer::MusicPlayer()
 , m_fileNames()
 , m_volume(100.0f)
 {
-    m_fileNames[Music::MenuTheme]       = "Data/Music/13 It Only Takes One Shot (From the.mp3";
-    m_fileNames[Music::MissionTheme]    = "Data/Music/06 My Least Favorite Life( From the.mp3";
+    m_fileNames[Music::MenuTheme]       = "Data/Music/MenuTheme.mp3";
+    m_fileNames[Music::MissionTheme]    = "Data/Music/MissionTheme.mp3";
 }
 
 void MusicPlayer::Play( Music::ID_t theme )
