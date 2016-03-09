@@ -1,6 +1,6 @@
 #include "states/GameState.h"
 #include <SFML/Graphics/RenderWindow.hpp>
-
+#include "music/MusicPlayer.h"
 
 GameState::GameState( StateStack& stack, Context_t context )
 : State(stack, context)
@@ -8,6 +8,8 @@ GameState::GameState( StateStack& stack, Context_t context )
 , m_player(*context.player)
 {
 	m_player.SetMissionStatus(Player::MissionRunning);
+
+	context.music->Play(Music::MissionTheme);
 }
 
 void GameState::Draw()
