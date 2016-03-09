@@ -2,6 +2,7 @@
 #include "gui/Button.h"
 #include "util/Utility.h"
 #include "resource/ResourceHolder.h"
+#include "music/MusicPlayer.h"
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -42,6 +43,13 @@ PauseState::PauseState(StateStack& stack, Context_t context)
 
     m_guiContainer.Pack(returnButton);
     m_guiContainer.Pack(backToMenuButton);
+
+	GetContext().music->SetPaused(true);
+}
+
+PauseState::~PauseState()
+{
+	GetContext().music->SetPaused(false);
 }
 
 void PauseState::Draw()

@@ -2,6 +2,7 @@
 #include "gui/Button.h"
 #include "util/Utility.h"
 #include "resource/ResourceHolder.h"
+#include "music/MusicPlayer.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
@@ -60,6 +61,8 @@ MenuState::MenuState(StateStack& stack, Context_t context)
 
 
 	m_backgroundSprite.setTexture( context.textures->Get(Textures::Menu ));
+
+	context.music->Play(Music::MenuTheme);
 }
 
 void MenuState::Draw()
