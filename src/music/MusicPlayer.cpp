@@ -5,7 +5,7 @@
 MusicPlayer::MusicPlayer()
 : m_music()
 , m_fileNames()
-, m_volume(0.0f)
+, m_volume(100.0f)
 {
     m_fileNames[Music::MenuTheme]       = "Data/Music/13 It Only Takes One Shot (From the.mp3";
     m_fileNames[Music::MissionTheme]    = "Data/Music/06 My Least Favorite Life( From the.mp3";
@@ -16,8 +16,12 @@ void MusicPlayer::Play( Music::ID_t theme )
     if (!m_music.openFromFile(m_fileNames[theme]))
     {
         LogError("Can't open music " + m_fileNames[theme]);
+        throw std::runtime_error("Music " + m_fileNames[theme] + " could not be opened.");
         return;
     }
+    m_music.setVolume((m_volume));
+    m_music.setLoop(true);
+    m_music.play();
 }
 
 void MusicPlayer::Stop()
