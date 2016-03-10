@@ -16,7 +16,7 @@ void MusicPlayer::Play( Music::ID_t theme )
     if (!m_music.openFromFile(m_fileNames[theme]))
     {
         LogError("Can't open music " + m_fileNames[theme]);
-        throw std::runtime_error("Music " + m_fileNames[theme] + " could not be opened.");
+		//throw std::runtime_error("Music " + m_fileNames[theme] + " could not be opened.");
         return;
     }
     m_music.setVolume((m_volume));
