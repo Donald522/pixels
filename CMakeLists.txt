@@ -31,11 +31,13 @@ include_directories(${PROJECT_SOURCE_DIR}/include/)
 SET(SOURCES
 src/world/World.cpp
 src/music/MusicPlayer.cpp
+src/music/SoundPlayer.cpp
 src/util/Utility.cpp
 src/animation/Animation.cpp
 src/nodes/TextNode.cpp
 src/nodes/SceneNode.cpp
 src/nodes/EmitterNode.cpp
+src/nodes/SoundNode.cpp
 src/nodes/SpriteNode.cpp
 src/nodes/ParticleNode.cpp
 src/app/Application.cpp
