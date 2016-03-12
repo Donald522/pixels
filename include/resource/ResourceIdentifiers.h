@@ -16,9 +16,7 @@ namespace Textures
     {
 		Entities,
 		Space,
-		ButtonNormal,
-		ButtonSelected,
-		ButtonPressed,
+        Buttons,
 		TitleScreen,
 		Menu,
 		LevelSelect,
@@ -48,7 +46,6 @@ namespace SoundEffect
 {
     enum ID_t
     {
-
         Gunfire,
         Explosion,
         Button
