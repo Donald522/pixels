@@ -21,12 +21,13 @@ Application::Application()
 , m_fonts()
 , m_player()
 , m_musicPlayer()
-, m_stateStack(State::Context_t(m_window, m_textures, m_fonts, m_player, m_musicPlayer))
+, m_soudPlayer()
+, m_stateStack(State::Context_t(m_window, m_textures, m_fonts, m_player, m_musicPlayer, m_soudPlayer))
 , m_statisticsText()
 , m_statisticsUpdateTime()
 , m_statisticsNumFrames(0)
 {
-    State::Context_t(m_window, m_textures, m_fonts, m_player, m_musicPlayer);
+	//State::Context_t(m_window, m_textures, m_fonts, m_player, m_musicPlayer, m_soudPlayer);
 	m_window.setKeyRepeatEnabled(false);
 
 	m_fonts.Load(Fonts::Main, 					"Data/Sansation.ttf");
@@ -34,9 +35,7 @@ Application::Application()
 	m_textures.Load(Textures::TitleScreen,		"Data/Textures/tittle.jpg" );
 	m_textures.Load(Textures::Menu,				"Data/Textures/tittle.jpg" );
 	m_textures.Load(Textures::LevelSelect,		"Data/Textures/tileable-classic-nebula-space-patterns-1.jpg" );
-	m_textures.Load(Textures::ButtonNormal,		"Data/Textures/ButtonNormal.png");
-	m_textures.Load(Textures::ButtonSelected,	"Data/Textures/ButtonSelected.png");
-	m_textures.Load(Textures::ButtonPressed,	"Data/Textures/ButtonPressed.png");
+	m_textures.Load(Textures::Buttons,			"Data/Textures/Buttons.png");
 
 	m_statisticsText.setFont(m_fonts.Get(Fonts::Main));
 	m_statisticsText.setPosition(5.f, 5.f);

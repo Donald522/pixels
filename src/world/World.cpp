@@ -21,12 +21,13 @@ namespace {
 }
 
 
-World::World( sf::RenderTarget& outTarget, FontHolder& fonts )
+World::World( sf::RenderTarget& outTarget, FontHolder& fonts, SoundPlayer& sounds )
 : m_target( outTarget )
 , m_sceneTexture()
 , m_worldView( outTarget.getDefaultView() )
 , m_fonts( fonts )
 , m_textures()
+, m_sounds(sounds)
 , m_sceneGrid()
 , m_sceneGraph()
 , m_sceneLayers()
@@ -66,6 +67,8 @@ void World::Update(sf::Time dt)
 
 	m_sceneGraph.Update(dt, m_commandQueue);
 	AdaptPlayerPosition();
+
+	UpdateSounds();
 }
 
 void World::Draw()
@@ -228,6 +231,12 @@ void World::HandleCollisions()
 		}
 	}
 	m_sceneGrid.Clear( );
+}
+
+void World::UpdateSounds()
+{
+	m_sounds.SetListenerPosition(m_playerAircraft->GetWorldPosition());
+	m_sounds.RemoveStoppedSounds();
 }
 
 void World::BuildScene()

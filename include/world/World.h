@@ -8,9 +8,8 @@
 #include "entity/Creature.h"
 #include "system/CommandQueue.h"
 #include "system/Command.h"
-
 #include "effects/BloomEffect.h"
-//#include "DayTime.h"
+#include "music/SoundPlayer.h"
 
 #include "system/SceneGrid.h"
 
@@ -33,7 +32,7 @@ class World : private sf::NonCopyable
 {
 	public:
 
-		explicit							World(sf::RenderTarget& outTarget, FontHolder& fonts);
+        explicit							World(sf::RenderTarget& outTarget, FontHolder& fonts, SoundPlayer& sounds);
 
 		void								Update(sf::Time dt);
 		void								Draw();
@@ -53,6 +52,7 @@ class World : private sf::NonCopyable
 		void								AdaptPlayerPosition();
 		void								AdaptPlayerVelocity();
 		void								HandleCollisions();
+        void                                UpdateSounds();
 		
 		void								BuildScene();
 		void								AddEnemies();
@@ -94,6 +94,7 @@ class World : private sf::NonCopyable
 		sf::View							m_worldView;
 		TextureHolder						m_textures;
 		FontHolder&							m_fonts;
+        SoundPlayer&                        m_sounds;
 
 
 		SceneGrid							m_sceneGrid;

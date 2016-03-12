@@ -4,7 +4,8 @@
 
 #include "gui/Component.h"
 #include "resource/ResourceIdentifiers.h"
-#include "resource/ResourceHolder.h"
+#include "states/State.h"
+#include "music/SoundPlayer.h"
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -25,7 +26,15 @@ class Button : public Component
         typedef std::shared_ptr<Button>		Ptr;
         typedef std::function<void()>		Callback;
 
-                                Button(const FontHolder& fonts, const TextureHolder& textures);
+        enum Type_t
+        {
+            Normal,
+            Selected,
+            Pressed,
+            ButtonCount
+        };
+
+                                Button(State::Context_t context);
 
         void					SetCallback(Callback callback);
         void					SetText(const std::string& text);
@@ -43,16 +52,16 @@ class Button : public Component
     private:
 
         virtual void			draw(sf::RenderTarget& target, sf::RenderStates states) const;
+        void                    ChangeTexture(Button::Type_t type);
 
     private:
 
         Callback				m_callback;
-        const sf::Texture&		m_normalTexture;
-        const sf::Texture&		m_selectedTexture;
-        const sf::Texture&		m_pressedTexture;
         sf::Sprite				m_sprite;
         sf::Text				m_text;
         bool					m_isToggle;
+
+        SoundPlayer&            m_sounds;
 };
 
 }

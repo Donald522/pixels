@@ -1,5 +1,6 @@
 #include "gui/Button.h"
 #include "util/Utility.h"
+#include "resource/ResourceHolder.h"
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
@@ -9,16 +10,14 @@
 namespace GUI
 {
 
-Button::Button(const FontHolder& fonts, const TextureHolder& textures)
+Button::Button(State::Context_t context)
 : m_callback()
-, m_normalTexture(textures.Get(Textures::ButtonNormal))
-, m_selectedTexture(textures.Get(Textures::ButtonSelected))
-, m_pressedTexture(textures.Get(Textures::ButtonPressed))
-, m_sprite()
-, m_text("", fonts.Get(Fonts::Main), 16)
+, m_sprite(context.textures->Get(Textures::Buttons))
+, m_text("", context.fonts->Get(Fonts::Main), 16)
 , m_isToggle(false)
+, m_sounds(*context.sound)
 {
-	m_sprite.setTexture(m_normalTexture);
+	ChangeTexture(Button::Normal);
 
 	sf::FloatRect bounds = m_sprite.getLocalBounds();
 	m_text.setPosition(bounds.width / 2.f, bounds.height / 2.f);
@@ -49,14 +48,15 @@ void Button::Select()
 {
 	Component::Select();
 
-	m_sprite.setTexture(m_selectedTexture);
+	ChangeTexture(Button::Selected);
+	m_sounds.Play(SoundEffect::Button);
 }
 
 void Button::Deselect()
 {
 	Component::Deselect();
 
-	m_sprite.setTexture(m_normalTexture);
+	ChangeTexture(Button::Normal);
 }
 
 void Button::Activate()
@@ -65,7 +65,7 @@ void Button::Activate()
 
     // If we are toggle then we should show that the button is pressed and thus "toggled".
 	if (m_isToggle)
-		m_sprite.setTexture(m_pressedTexture);
+		ChangeTexture(Button::Pressed);
 
 	if (m_callback)
 		m_callback();
@@ -73,6 +73,8 @@ void Button::Activate()
     // If we are not a toggle then deactivate the button since we are just momentarily activated.
 	if (!m_isToggle)
 		Deactivate();
+
+	m_sounds.Play(SoundEffect::Button);
 }
 
 void Button::Deactivate()
@@ -83,14 +85,15 @@ void Button::Deactivate()
 	{
         // Reset texture to right one depending on if we are selected or not.
 		if (IsSelected())
-			m_sprite.setTexture(m_selectedTexture);
+			ChangeTexture(Button::Selected);
 		else
-			m_sprite.setTexture(m_normalTexture);
+			ChangeTexture(Button::Normal);
 	}
 }
 
 void Button::HandleEvent(const sf::Event&)
 {
+
 }
 
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -99,5 +102,12 @@ void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_sprite, states);
 	target.draw(m_text, states);
 }
+
+void Button::ChangeTexture(Button::Type_t type)
+{
+	sf::IntRect textureRect(0, 50 * type, 200, 50);
+	m_sprite.setTextureRect(textureRect);
+}
+
 
 }

@@ -19,7 +19,7 @@ MenuState::MenuState(StateStack& stack, Context_t context)
 
 	m_renderTexture.create( context.window->getSize( ).x, context.window->getSize( ).y );
 
-	auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto playButton = std::make_shared<GUI::Button>(context);
 	playButton->setPosition(100, 300);
     playButton->SetText("Play");
     playButton->SetCallback([this] ()
@@ -29,7 +29,7 @@ MenuState::MenuState(StateStack& stack, Context_t context)
 	});
 	
 
-	auto settingsButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto settingsButton = std::make_shared<GUI::Button>(context);
 	settingsButton->setPosition(100, 350);
     settingsButton->SetText("Settings");
     settingsButton->SetCallback([this] ()
@@ -37,7 +37,7 @@ MenuState::MenuState(StateStack& stack, Context_t context)
 		RequestStackPush(States::Settings);
 	});
 
-	auto exitButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto exitButton = std::make_shared<GUI::Button>(context);
 	exitButton->setPosition(100, 400);
     exitButton->SetText("Exit");
     exitButton->SetCallback([this] ()

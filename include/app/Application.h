@@ -6,6 +6,7 @@
 #include "player/Player.h"
 #include "states/StateStack.h"
 #include "music/MusicPlayer.h"
+#include "music/SoundPlayer.h"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -39,6 +40,7 @@ class Application : public sf::NonCopyable
 	  	FontHolder				m_fonts;
 		Player					m_player;
         MusicPlayer             m_musicPlayer;
+        SoundPlayer             m_soudPlayer;
 
 
 		StateStack				m_stateStack;
