@@ -99,3 +99,26 @@ install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)
 include(InstallRequiredSystemLibraries)
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
 include(CPack)
+
+
+# tests
+set(TESTS
+ TestEntity
+)
+
+# Locate GTest
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
+
+
+foreach(TEST ${TESTS})
+  add_executable(${TEST} WIN32 tests/${TEST}.cpp)
+  set_property(TARGET ${TEST} PROPERTY DEBUG_POSTFIX _d)
+  target_link_libraries(
+        ${TEST}
+        ${COMMON_LIBS}
+        ${GTEST_LIBRARIES}
+        pthread
+    )
+endforeach(TEST)
