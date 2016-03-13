@@ -17,7 +17,7 @@
 
 namespace {
 	const float worldLength			= 15000.0f;
-	const float worldScrollSpeed	= -75.0f; 
+	const float worldScrollSpeed	= -100.0f;
 }
 
 
@@ -73,25 +73,13 @@ void World::Update(sf::Time dt)
 
 void World::Draw()
 {
-	bool useBloom = true;
+	bool useBloom = false;
 	if ( useBloom )
 	{
 		m_sceneTexture.clear();
-		
 
 		m_sceneTexture.setView( m_worldView );
 		m_sceneTexture.draw( m_sceneGraph );
-
-		float s = m_target.getSize( ).x / float( m_sceneGrid.cellCount_t );
-		float t = m_target.getSize( ).y / float( m_sceneGrid.cellCount_t );
-		sf::Vertex line[] = {
-
-			sf::Vertex( sf::Vector2f( 0.0f, 0.0f ), sf::Color::Red ),
-			sf::Vertex( sf::Vector2f( 500.0f, 500.0f ), sf::Color::Red )
-
-		};
-		m_sceneTexture.draw( line , 2, sf::Lines);
-
 		m_sceneTexture.display();
 		m_bloomEffect.Apply( m_sceneTexture, m_target );
 	}
@@ -299,6 +287,8 @@ void World::AddEnemies()
 
 	LogInfo( "Adding enemies");
 	float startPos = 700.0f;
+
+	AddEnemy( Creature::AlienTestBoss, 0.0f, 750.0f );
 	
 	for ( float x = startPos; startPos < worldLength; startPos += 150.0f )
 	{
@@ -338,6 +328,11 @@ void World::SpawnEnemies()
 		&& m_enemySpawnPoints.back().y > GetBattlefieldBounds().top)
 	{
 		SpawnPoint_t spawn = m_enemySpawnPoints.back();
+		if (spawn.type == Creature::AlienTestBoss)
+		{
+			std::cout << "BOSS\n";
+			SetScrollSpeed(-20);
+		}
 		
 		std::unique_ptr<Creature> enemy( new Creature( &m_sceneGrid, spawn.type, m_textures, m_fonts ) );
 		enemy->setPosition(spawn.x, spawn.y);
@@ -405,6 +400,7 @@ void World::GuideMissiles()
 	m_commandQueue.Push(enemyCollector);
 	m_commandQueue.Push(missileGuider);
 
+	// 0 active enemies = resume scrolling
 	if ( m_activeEnemies.size() == 0 )
 		ScrollResume();
 
@@ -425,4 +421,9 @@ sf::FloatRect World::GetBattlefieldBounds() const
 
 
 	return bounds;
+}
+
+void World::SetScrollSpeed(float speed)
+{
+	m_scrollSpeed = speed;
 }

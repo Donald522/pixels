@@ -63,6 +63,9 @@ class World : private sf::NonCopyable
 		sf::FloatRect						GetViewBounds() const;
 		sf::FloatRect						GetBattlefieldBounds() const;
 
+        void                                SetScrollSpeed(float speed);
+
+
 	private:
 
 		enum Layer_t

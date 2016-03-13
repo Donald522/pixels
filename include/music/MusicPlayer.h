@@ -14,20 +14,20 @@ public:
 
 			MusicPlayer();
 
-	void	Play( Music::ID_t theme );
-	void	Stop();
+    void	Play( Music::ID_t theme );
+    void	Stop();
 
     void    SetLoop(bool loop);
 
-	void	SetPaused( bool paused );
-	void	SetVolume( float volume );
+    void	SetPaused( bool paused );
+    void	SetVolume( float volume );
 
 private:
 
-	sf::Music							m_music;
-	std::map<Music::ID_t, std::string>	m_fileNames;
+    sf::Music							m_music;
+    std::map<Music::ID_t, std::string>	m_fileNames;
 
-	float								m_volume;
+    float								m_volume;
 };
 
 #endif // MUSIC_PLAYER_H

@@ -18,7 +18,7 @@ std::vector<AircraftData> InitializeAircraftData()
 	data[Creature::PlayerStarship].textureRect = sf::IntRect( 126, 0, 120, 120 );
 
 	data[Creature::AlienEasy].hitpoints = 60;
-	data[Creature::AlienEasy].speed = 170.f;
+	data[Creature::AlienEasy].speed = 150.f;
 	data[Creature::AlienEasy].texture = Textures::Entities;
 	data[Creature::AlienEasy].textureRect = sf::IntRect( 247, 0, 114, 200 );
 	data[Creature::AlienEasy].directions.push_back(Direction(+45.f, 80.f));
@@ -27,7 +27,7 @@ std::vector<AircraftData> InitializeAircraftData()
 	data[Creature::AlienEasy].fireInterval = sf::seconds(100);
 
 	data[Creature::AlienMedium].hitpoints = 50;
-	data[Creature::AlienMedium].speed = 140.f;
+	data[Creature::AlienMedium].speed = 130.f;
 	data[Creature::AlienMedium].texture = Textures::Entities;
 	data[Creature::AlienMedium].textureRect = sf::IntRect( 0, 0, 125, 238 );
 	data[Creature::AlienMedium].directions.push_back(Direction(+45.f,  50.f));
@@ -54,7 +54,7 @@ std::vector<ProjectileData> InitializeProjectileData()
 	std::vector<ProjectileData> data(Projectile::TypeCount);
 
 	data[Projectile::AlliedBullet].damage = 20;
-	data[Projectile::AlliedBullet].speed = 500.f;
+	data[Projectile::AlliedBullet].speed = 600.f;
 	data[Projectile::AlliedBullet].texture = Textures::Entities;
 	data[Projectile::AlliedBullet].textureRect = sf::IntRect( 208, 121, 3, 14);
 

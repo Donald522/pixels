@@ -54,10 +54,9 @@ bool Projectile::IsGuided() const
 
 void Projectile::UpdateCurrent(sf::Time dt, CommandQueue& commands)
 {
-	const float approachRate = 200.f;
 	if (IsGuided())
 	{
-		const float approachRate = 200.f;
+		const float approachRate = 300.f;
 
 		sf::Vector2f newVelocity = VectorUnit(approachRate * dt.asSeconds() * m_targetDirection + GetVelocity());
 		newVelocity *= GetSpeed();
@@ -66,7 +65,6 @@ void Projectile::UpdateCurrent(sf::Time dt, CommandQueue& commands)
 		setRotation(ToDegree(angle) + 90.f);
 		SetVelocity(newVelocity);
 	}
-
 
 	Entity::UpdateCurrent(dt, commands);
 }

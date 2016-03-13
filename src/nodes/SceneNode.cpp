@@ -15,7 +15,7 @@ SceneNode::SceneNode(Category::Type_t category)
 : m_children()
 , m_parent(nullptr)
 , m_defaultCategory(category)
-, m_IsDrawBoundingRect(true)
+, m_IsDrawBoundingRect(false)
 {
 
 }
