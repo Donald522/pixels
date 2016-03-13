@@ -10,12 +10,6 @@ before_install:
   - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
   - sudo apt-get update -q
   - sudo apt-get install gcc-4.8 -y
-  - sudo apt-get install libgtest-dev
-  - cd /usr/src/gtest
-  - sudo cmake .
-  - sudo make
-  - sudo mv libg* /usr/lib/
-  - cd /
 
 
 before_script:
@@ -38,6 +32,12 @@ install:
     - cmake -G "Unix Makefiles" -DBUILD_SHARED_LIBS=1 -DCMAKE_INSTALL_PREFIX=../installation ../
     - make -j8 && make install
     - cd ../../..
+    
+    - sudo apt-get install libgtest-dev
+    - sudo cmake /usr/src/gtest
+    - sudo make /usr/src/gtest
+    - sudo mv /usr/src/gtest/libg* /usr/lib/
+    
 
 script:
     - make
