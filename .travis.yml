@@ -35,9 +35,11 @@ install:
     
     
     - sudo apt-get install libgtest-dev
-    - sudo cmake /usr/src/gtest
-    - sudo make /usr/src/gtest
-    - sudo mv /usr/src/gtest/* /usr/lib/
+    - pushd /usr/src/gtest
+    - sudo cmake .
+    - sudo make 
+    - sudo mv lib* /usr/lib/
+    - popd
     
 
 script:
