@@ -11,6 +11,11 @@ before_install:
   - sudo apt-get update -q
   - sudo apt-get install gcc-4.8 -y
   - sudo apt-get install libgtest-dev
+  - cd /usr/src/gtest
+  - sudo cmake .
+  - sudo make
+  - sudo mv libg* /usr/lib/
+
 
 before_script:
     - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=DEBUG -DSFML_ROOT="deps/SFML/installation" .
