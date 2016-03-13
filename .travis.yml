@@ -34,9 +34,11 @@ install:
     - cd ../../..
     
     - sudo apt-get install libgtest-dev
-    - sudo cmake /usr/src/gtest
-    - sudo make /usr/src/gtest
-    - sudo mv /usr/src/gtest/libg* /usr/lib/
+    - cd /usr/src/gtest
+    - sudo cmake .
+    - sudo make 
+    - sudo mv libg* /usr/lib/
+    - cd ~
     
 
 script:
