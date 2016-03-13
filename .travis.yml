@@ -38,7 +38,7 @@ install:
     - sudo cmake .
     - sudo make 
     - sudo mv libg* /usr/lib/
-    - cd ~
+    - cd /home/travis/FruitClover/pixels
     
 
 script:
