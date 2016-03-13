@@ -71,11 +71,15 @@ src/effects/BloomEffect.cpp
 src/player/Player.cpp
 src/states/State.cpp
 src/log/Log.cpp
-src/pixels/Main.cpp)
+)
 
 
+set(PIXEL_LIB_NAME "game")
+add_library(${PIXEL_LIB_NAME} ${SOURCES} ${PROJECT_SOURCE_DIR}/include/)
 
-add_executable(${EXECUTABLE_NAME} ${SOURCES})
+
+add_executable(${EXECUTABLE_NAME} "src/pixels/Main.cpp")
+target_link_libraries(${EXECUTABLE_NAME}  ${PIXEL_LIB_NAME})
 
 
 
@@ -99,3 +103,28 @@ install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)
 include(InstallRequiredSystemLibraries)
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
 include(CPack)
+
+
+# tests
+set(TESTS
+ TestEntity
+ TestResource
+)
+
+# Locate GTest
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
+
+foreach(TEST ${TESTS})
+  add_executable(${TEST} tests/${TEST}.cpp ${SOURCES} ${PROJECT_SOURCE_DIR}/include/)
+  #set_property(TARGET ${TEST} PROPERTY DEBUG_POSTFIX _d)
+  target_link_libraries(
+        ${TEST}
+        ${GTEST_LIBRARIES}
+        ${SFML_LIBRARIES}
+        ${PIXEL_LIB_NAME}
+        pthread
+    )
+    install(TARGETS ${TEST} DESTINATION bin)
+endforeach(TEST)
