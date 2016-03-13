@@ -33,12 +33,11 @@ install:
     - make -j8 && make install
     - cd ../../..
     
+    
     - sudo apt-get install libgtest-dev
-    - cd /usr/src/gtest
-    - sudo cmake .
-    - sudo make 
-    - sudo mv libg* /usr/lib/
-    - cd /home/travis/FruitClover/pixels
+    - sudo cmake /usr/src/gtest
+    - sudo make /usr/src/gtest
+    - sudo mv /usr/src/gtest/* /usr/lib/
     
 
 script:
