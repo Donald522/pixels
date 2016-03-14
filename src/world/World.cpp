@@ -43,6 +43,7 @@ World::World( sf::RenderTarget& outTarget, FontHolder& fonts, SoundPlayer& sound
 	LoadTextures();
 	BuildScene();
 
+
 	m_worldView.setCenter(m_spawnPosition);
 }
 
@@ -77,7 +78,6 @@ void World::Draw()
 	if ( useBloom )
 	{
 		m_sceneTexture.clear();
-
 		m_sceneTexture.setView( m_worldView );
 		m_sceneTexture.draw( m_sceneGraph );
 		m_sceneTexture.display();
@@ -120,6 +120,15 @@ void World::ScrollResume( )
 	m_scrollSpeed = worldScrollSpeed;
 }
 
+void World::SetScrollSpeed(float speed)
+{
+	m_scrollSpeed = speed;
+}
+
+float World::GetScrollSpeed( ) const
+{
+	return m_scrollSpeed;
+}
 
 void World::LoadTextures()
 {
@@ -423,7 +432,3 @@ sf::FloatRect World::GetBattlefieldBounds() const
 	return bounds;
 }
 
-void World::SetScrollSpeed(float speed)
-{
-	m_scrollSpeed = speed;
-}

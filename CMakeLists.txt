@@ -76,8 +76,6 @@ src/log/Log.cpp
 
 set(PIXEL_LIB_NAME "game")
 add_library(${PIXEL_LIB_NAME} ${SOURCES} ${PROJECT_SOURCE_DIR}/include/)
-
-
 add_executable(${EXECUTABLE_NAME} "src/pixels/Main.cpp")
 target_link_libraries(${EXECUTABLE_NAME}  ${PIXEL_LIB_NAME})
 
@@ -94,13 +92,12 @@ if(SFML_FOUND)
   target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES})
 endif()
 
+target_link_libraries(${PIXEL_LIB_NAME}  ${SFML_LIBRARIES})
 
 
-# Install target
-install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)
 
 # CPack packaging
-include(InstallRequiredSystemLibraries)
+#include(InstallRequiredSystemLibraries)
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
 include(CPack)
 
@@ -117,7 +114,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 
 foreach(TEST ${TESTS})
-  add_executable(${TEST} tests/${TEST}.cpp ${SOURCES} ${PROJECT_SOURCE_DIR}/include/)
+  add_executable(${TEST} tests/${TEST}.cpp )
   #set_property(TARGET ${TEST} PROPERTY DEBUG_POSTFIX _d)
   target_link_libraries(
         ${TEST}
@@ -128,3 +125,7 @@ foreach(TEST ${TESTS})
     )
     install(TARGETS ${TEST} DESTINATION bin)
 endforeach(TEST)
+
+
+# Install target
+install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)

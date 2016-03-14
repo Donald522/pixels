@@ -50,10 +50,10 @@ bool GameState::HandleEvent(const sf::Event& event)
 	if ( event.type == sf::Event::KeyPressed )
 	{
 		if ( event.key.code == sf::Keyboard::P )
-			m_world.ScrollStop();
+			m_world.SetScrollSpeed(m_world.GetScrollSpeed() + 10);
 
 		if ( event.key.code == sf::Keyboard::O )
-			m_world.ScrollResume( );
+			m_world.SetScrollSpeed(m_world.GetScrollSpeed() - 10);
 
 		if ( event.key.code == sf::Keyboard::Escape )
 			RequestStackPush( States::Pause );

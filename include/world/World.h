@@ -46,6 +46,8 @@ class World : private sf::NonCopyable
 
 		void								ScrollStop( );
 		void								ScrollResume( );
+        void                                SetScrollSpeed(float speed);
+        float                               GetScrollSpeed() const;
 
 	private:
 		void								LoadTextures();
@@ -63,7 +65,6 @@ class World : private sf::NonCopyable
 		sf::FloatRect						GetViewBounds() const;
 		sf::FloatRect						GetBattlefieldBounds() const;
 
-        void                                SetScrollSpeed(float speed);
 
 
 	private:

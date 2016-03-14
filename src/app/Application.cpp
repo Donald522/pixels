@@ -10,6 +10,7 @@
 #include "states/LevelSelectState.h"
 #include "states/GameOverState.h"
 
+#include "log/Log.h"
 
 const sf::Time Application::TimePerFrame = sf::seconds(1.0f/60.f);
 
@@ -27,6 +28,11 @@ Application::Application()
 , m_statisticsUpdateTime()
 , m_statisticsNumFrames(0)
 {
+	LogInfo("Window major version: "	+ std::to_string(m_window.getSettings().majorVersion));
+	LogInfo("Window minor version: "	+ std::to_string(m_window.getSettings().minorVersion));
+	LogInfo("Window depth: "			+ std::to_string(m_window.getSettings().depthBits));
+
+
 	//State::Context_t(m_window, m_textures, m_fonts, m_player, m_musicPlayer, m_soudPlayer);
 	m_window.setKeyRepeatEnabled(false);
 
@@ -45,7 +51,6 @@ Application::Application()
 	m_stateStack.PushState(States::Title);
 
 	
-
 
 	std::cout << "Joystick connected: "	<< sf::Joystick::isConnected(0)					<< std::endl;
 	std::cout << "Joystick buttons: "	<< sf::Joystick::getButtonCount( 0 )			<< std::endl;
