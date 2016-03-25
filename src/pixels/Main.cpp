@@ -26,6 +26,12 @@ int main(int argc, char* argv[])
 			case 'd':
 				cfg.gDebug = true;
 				break;
+			case 'b':
+				cfg.gUseBloomEffect = true;
+				break;
+			case 'p':
+				cfg.gUsePixelateEffect = true;
+				break;
 			default:
 				break;
 		}

@@ -12,6 +12,9 @@ struct Config_t
     int 	gHeight 	= 768;
     bool 	gFullscreen = false;
     bool 	gDebug 		= false;
+
+    bool    gUseBloomEffect         = false;
+    bool    gUsePixelateEffect      = false;
 };
 
 

@@ -21,7 +21,7 @@ namespace {
 }
 
 
-World::World( sf::RenderTarget& outTarget, FontHolder& fonts, SoundPlayer& sounds )
+World::World( sf::RenderTarget& outTarget, FontHolder& fonts, SoundPlayer& sounds, Config_t& cfg )
 : m_target( outTarget )
 , m_sceneTexture()
 , m_worldView( outTarget.getDefaultView() )
@@ -38,11 +38,11 @@ World::World( sf::RenderTarget& outTarget, FontHolder& fonts, SoundPlayer& sound
 , m_enemySpawnPoints()
 , m_activeEnemies()
 {
+	m_useBloomEffect = cfg.gUseBloomEffect;
 	m_sceneTexture.create( m_target.getSize().x, m_target.getSize().y );
 
 	LoadTextures();
 	BuildScene();
-
 
 	m_worldView.setCenter(m_spawnPosition);
 }
@@ -74,8 +74,7 @@ void World::Update(sf::Time dt)
 
 void World::Draw()
 {
-	bool useBloom = false;
-	if ( useBloom )
+	if ( m_useBloomEffect )
 	{
 		m_sceneTexture.clear();
 		m_sceneTexture.setView( m_worldView );

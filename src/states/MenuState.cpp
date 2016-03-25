@@ -63,14 +63,14 @@ MenuState::MenuState(StateStack& stack, Context_t context)
 	m_backgroundSprite.setTexture( context.textures->Get(Textures::Menu ));
 
 	context.music->Play(Music::MenuTheme);
+	m_usePixelateEffect = context.cfg.gUsePixelateEffect;
 }
 
 void MenuState::Draw()
 {
 	sf::RenderWindow& window = *GetContext().window;
 
-	bool useEffect = true;
-	if ( useEffect )
+	if ( m_usePixelateEffect )
 	{
 		m_renderTexture.clear();
 		m_renderTexture.setView( window.getDefaultView() );

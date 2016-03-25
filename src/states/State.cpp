@@ -5,13 +5,14 @@
 
 
 State::Context_t::Context_t(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts,
-							Player& player, MusicPlayer& music, SoundPlayer& sound)
+							Player& player, MusicPlayer& music, SoundPlayer& sound, Config_t cfg)
 : window(&window)
 , textures(&textures)
 , fonts(&fonts)
 , player(&player)
 , music(&music)
 , sound(&sound)
+, cfg(cfg)
 {
 }
 

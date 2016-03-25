@@ -4,7 +4,7 @@
 
 GameState::GameState( StateStack& stack, Context_t context )
 : State(stack, context)
-, m_world( *context.window, *context.fonts, *context.sound )
+, m_world( *context.window, *context.fonts, *context.sound, context.cfg )
 , m_player(*context.player)
 {
 	m_player.SetMissionStatus(Player::MissionRunning);

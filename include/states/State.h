@@ -31,7 +31,7 @@ class State
 		struct Context_t
 		{
                                 Context_t(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts,
-                                          Player& player, MusicPlayer& music, SoundPlayer& sound);
+                                          Player& player, MusicPlayer& music, SoundPlayer& sound, Config_t cfg);
 
 			sf::RenderWindow*	window;
 			TextureHolder*		textures;
