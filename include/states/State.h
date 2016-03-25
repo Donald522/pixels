@@ -3,6 +3,7 @@
 
 #include "states/StateIdentifiers.h"
 #include "resource/ResourceIdentifiers.h"
+#include "system/Config.h"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Window/Event.hpp>
@@ -38,6 +39,7 @@ class State
 			Player*				player;
             MusicPlayer*        music;
             SoundPlayer*        sound;
+			Config_t			cfg;
 		};
 
 

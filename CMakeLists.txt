@@ -71,7 +71,7 @@ src/effects/BloomEffect.cpp
 src/player/Player.cpp
 src/states/State.cpp
 src/log/Log.cpp
-)
+        )
 
 
 set(PIXEL_LIB_NAME "game")

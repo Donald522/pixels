@@ -1,6 +1,7 @@
 #ifndef APPLICATION_H_
 #define APPLICATION_H_
 
+#include "system/Config.h"
 #include "resource/ResourceHolder.h"
 #include "resource/ResourceIdentifiers.h"
 #include "player/Player.h"
@@ -18,7 +19,7 @@
 class Application : public sf::NonCopyable
 {
 	public:
-								Application();
+		explicit				Application(Config_t cfg);
 
 		void					Run();
 		

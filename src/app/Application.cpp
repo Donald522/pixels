@@ -11,13 +11,12 @@
 #include "states/GameOverState.h"
 
 #include "log/Log.h"
-
 const sf::Time Application::TimePerFrame = sf::seconds(1.0f/60.f);
 
 #include <iostream>
 
-Application::Application()
-: m_window(sf::VideoMode(1400, 900), "Pixels", sf::Style::Close)
+Application::Application(Config_t cfg)
+: m_window(sf::VideoMode(cfg.gWidth, cfg.gHeight), "Pixels", cfg.gFullscreen ? sf::Style::Fullscreen : sf::Style::Close)
 , m_textures()
 , m_fonts()
 , m_player()
