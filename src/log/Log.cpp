@@ -5,7 +5,7 @@
 #include <string>
 #include <ctime>
 #include <fstream>
-
+#include <syslog.h>
 
 const std::string CurrentDateTime( ) {
 	time_t     now = time( 0 );
@@ -35,14 +35,17 @@ void CloseLog()
 
 void LogInfo( std::string str )
 {
-	std::time_t t = std::time( nullptr );
-	logFile << CurrentDateTime( ) << " [INFO]: " << str << '\n';
+	//std::time_t t = std::time( nullptr );
+	//logFile << CurrentDateTime( ) << " [INFO]: " << str << '\n';
+	syslog(LOG_INFO, str.c_str());
 }
 
 void LogError( std::string str )
 {
-	std::time_t t = std::time( nullptr );
-	logFile << CurrentDateTime( ) << " [ERROR]: " << str << '\n';
+	//std::time_t t = std::time( nullptr );
+	//logFile << CurrentDateTime( ) << " [ERROR]: " << str << '\n';
+	syslog(LOG_ERR, str.c_str());
+
 }
 
 #undef _CRT_SECURE_NO_WARNINGS

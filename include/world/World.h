@@ -11,6 +11,7 @@
 #include "effects/BloomEffect.h"
 #include "music/SoundPlayer.h"
 
+#include "system/Config.h"
 #include "system/SceneGrid.h"
 
 #include <SFML/System/NonCopyable.hpp>
@@ -20,6 +21,7 @@
 
 #include <array>
 #include <queue>
+
 
 
 // Forward declaration
@@ -32,7 +34,7 @@ class World : private sf::NonCopyable
 {
 	public:
 
-        explicit							World(sf::RenderTarget& outTarget, FontHolder& fonts, SoundPlayer& sounds);
+        explicit							World(sf::RenderTarget& outTarget, FontHolder& fonts, SoundPlayer& sounds, Config_t& cfg);
 
 		void								Update(sf::Time dt);
 		void								Draw();
@@ -46,6 +48,8 @@ class World : private sf::NonCopyable
 
 		void								ScrollStop( );
 		void								ScrollResume( );
+        void                                SetScrollSpeed(float speed);
+        float                               GetScrollSpeed() const;
 
 	private:
 		void								LoadTextures();
@@ -62,6 +66,8 @@ class World : private sf::NonCopyable
 		void								GuideMissiles();
 		sf::FloatRect						GetViewBounds() const;
 		sf::FloatRect						GetBattlefieldBounds() const;
+
+
 
 	private:
 
@@ -113,6 +119,7 @@ class World : private sf::NonCopyable
 		std::vector<Creature*>				m_activeEnemies;
 
 		BloomEffect							m_bloomEffect;
+		bool 								m_useBloomEffect;
 };
 
 #endif // WORLD_H

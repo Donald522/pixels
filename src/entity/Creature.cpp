@@ -31,7 +31,7 @@ Creature::Creature( SceneGrid* sceneGrid, Type_t type, const TextureHolder& text
 , m_isLaunchingMissile( false )
 , m_showExplosion( true )
 , m_spawnedPickup(false)
-, m_fireRateLevel( 1 )
+, m_fireRateLevel( 5 )
 , m_spreadLevel( 1 )
 , m_missileAmmo( 2000 )
 , m_dropPickupCommand( )
@@ -48,7 +48,11 @@ Creature::Creature( SceneGrid* sceneGrid, Type_t type, const TextureHolder& text
 
 	CenterOrigin( m_explosion );
 
-	setScale( 0.9f, 0.9f );
+	if (m_type == Creature::AlienTestBoss)
+		setScale( 1.0f, 1.0f );
+	else
+		setScale( 0.6f, 0.6f );
+
 	CenterOrigin( m_sprite );
 
 	m_fireCommand.category = Category::SceneAirLayer;
@@ -278,7 +282,7 @@ void Creature::CreateProjectile( SceneNode& node, Projectile::Type_t type, float
 	std::unique_ptr<Projectile> projectile( new Projectile( m_sceneGrid, type, textures ) );
 
 	sf::Vector2f offset( xOffset * m_sprite.getGlobalBounds( ).width, yOffset * m_sprite.getGlobalBounds( ).height );
-	sf::Vector2f velocity( 0, projectile->GetSpeed( ) );
+	sf::Vector2f velocity( 0.0f, projectile->GetSpeed( ) );
 
 	float sign = IsAllied( ) ? -1.0f : +1.0f;
 	projectile->setPosition( GetWorldPosition( ) + offset * sign );

@@ -3,6 +3,7 @@
 
 #include "states/StateIdentifiers.h"
 #include "resource/ResourceIdentifiers.h"
+#include "system/Config.h"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Window/Event.hpp>
@@ -30,7 +31,7 @@ class State
 		struct Context_t
 		{
                                 Context_t(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts,
-                                          Player& player, MusicPlayer& music, SoundPlayer& sound);
+                                          Player& player, MusicPlayer& music, SoundPlayer& sound, Config_t cfg);
 
 			sf::RenderWindow*	window;
 			TextureHolder*		textures;
@@ -38,6 +39,7 @@ class State
 			Player*				player;
             MusicPlayer*        music;
             SoundPlayer*        sound;
+			Config_t			cfg;
 		};
 
 

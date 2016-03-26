@@ -30,6 +30,7 @@ class MenuState : public State
 		sf::RenderTexture		m_renderTexture;
 		BloomEffect				m_bloomEffect;
 		PixelateEffect			m_pixelateEffect;
+		bool 					m_usePixelateEffect;
 };
 
 #endif // MENUSTATE_H
