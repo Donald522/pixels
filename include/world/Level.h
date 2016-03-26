@@ -5,9 +5,46 @@
 #ifndef PIXELS_LEVEL_H
 #define PIXELS_LEVEL_H
 
+#include "entity/Creature.h"
+
+#include <SFML/Graphics/View.hpp>
+
 
 class Level {
+public:
 
+            Level();
+    void    SetLevelLength(float length);
+    void    SetSpawnPosition(sf::Vector2f pos);
+    void    SetView(sf::View view);
+    void    SetScroolSpeed(float speed);
+    //TODO: add support
+    bool    LoadFromFile(const std::string fileName);
+    void    AddEnemy( Creature::Type_t type, float relX, float relY );
+
+
+private:
+
+    struct SpawnPoint_t {
+        SpawnPoint_t(Creature::Type_t type, float x, float y)
+                : type(type), x(x), y(y) {
+        }
+
+        Creature::Type_t type;
+        float x;
+        float y;
+    };
+
+
+    sf::FloatRect               m_worldBounds;
+    sf::Vector2f                m_spawnPosition;
+    sf::View                    m_view;
+
+    float                       m_scrollSpeed;
+    float                       m_levelLength;
+
+    std::vector<SpawnPoint_t>   m_enemySpawnPoints;
+    std::vector<Creature *>     m_activeEnemies;
 };
 
 

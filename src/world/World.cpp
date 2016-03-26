@@ -37,10 +37,12 @@ World::World( sf::RenderTarget& outTarget, FontHolder& fonts, SoundPlayer& sound
 , m_playerAircraft( nullptr )
 , m_enemySpawnPoints()
 , m_activeEnemies()
+, m_level()
 {
 	m_useBloomEffect = cfg.gUseBloomEffect;
 	m_sceneTexture.create( m_target.getSize().x, m_target.getSize().y );
 
+    LoadLevel();
 	LoadTextures();
 	BuildScene();
 
@@ -127,6 +129,30 @@ void World::SetScrollSpeed(float speed)
 float World::GetScrollSpeed( ) const
 {
 	return m_scrollSpeed;
+}
+
+void World::LoadLevel()
+{
+    m_level.SetLevelLength(15000.0f);
+    m_level.SetView(m_worldView);
+    m_level.SetSpawnPosition(sf::Vector2f(m_worldView.getSize().x / 2.f, m_worldBounds.height - m_worldView.getSize().y / 2.f));
+    m_level.SetScroolSpeed(-100.0f);
+
+    float startPos = 700.0f;
+
+    m_level.AddEnemy( Creature::AlienTestBoss, 0.0f, 750.0f );
+
+    for ( float x = startPos; startPos < worldLength; startPos += 150.0f )
+    {
+        size_t enemyCount = RandomInt( 5 );
+        for ( size_t i = 0; i < enemyCount; ++i )
+        {
+            Creature::Type_t enemyType = Creature::Type_t( RandomInt( 2 ) + 1 );
+            float posX = static_cast<float>(RandomInt( 800 ) - 400);
+            m_level.AddEnemy( enemyType, posX, startPos );
+
+        }
+    }
 }
 
 void World::LoadTextures()
