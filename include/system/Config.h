@@ -8,10 +8,10 @@
 // program config
 struct Config_t
 {
-    int 	gWidth 		            = 1024;
-    int 	gHeight 	            = 768;
-    bool 	gFullscreen             = false;
-    bool 	gDebug 		            = false;
+    int	    gWidth	            = 1024;
+    int	    gHeight 	            = 768;
+    bool    gFullscreen             = false;
+    bool    gDebug 	            = false;
 
     bool    gUseBloomEffect         = false;
     bool    gUsePixelateEffect      = false;
