@@ -46,7 +46,7 @@ class Application : public sf::NonCopyable
 		StateStack		m_stateStack;
 
 		sf::Text		m_statisticsText;
-		sf::Time			m_statisticsUpdateTime;
+		sf::Time		m_statisticsUpdateTime;
 		std::size_t		m_statisticsNumFrames;
 };
 
