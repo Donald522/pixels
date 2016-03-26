@@ -43,10 +43,10 @@ class Application : public sf::NonCopyable
 		MusicPlayer             m_musicPlayer;
 		SoundPlayer             m_soudPlayer;
 
-		StateStac		m_stateStack;
+		StateStack		m_stateStack;
 
 		sf::Text		m_statisticsText;
-		sf::Tim			m_statisticsUpdateTime;
+		sf::Time		m_statisticsUpdateTime;
 		std::size_t		m_statisticsNumFrames;
 };
 
