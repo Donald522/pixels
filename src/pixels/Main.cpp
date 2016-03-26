@@ -5,7 +5,7 @@
 
 int main(int argc, char* argv[])
 {
-    char optionString[] = "w:h:bp";
+	char optionString[] = "w:h:bp";
 	int opt = getopt(argc, argv, optionString);
 
 	Config_t cfg;
