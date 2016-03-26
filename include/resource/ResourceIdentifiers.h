@@ -4,9 +4,9 @@
 
 namespace sf
 {
-	class Texture;
-	class Font;
-	class Shader;
+    class Texture;
+    class Font;
+    class Shader;
     class SoundBuffer;
 }
 
@@ -14,22 +14,22 @@ namespace Textures
 {
     enum ID_t
     {
-		Entities,
-		Space,
+	Entities,
+	Space,
         Buttons,
-		TitleScreen,
-		Menu,
-		LevelSelect,
-		Particle,
-		Explosion
-	};
+	TitleScreen,
+	Menu,
+	LevelSelect,
+	Particle,
+	Explosion
+    };
 }
 
 namespace Fonts
 {
     enum ID_t
     {
-		Main,
+	Main,
     };
 }
 
@@ -37,9 +37,9 @@ namespace Music
 {
     enum ID_t
     {
-		MenuTheme,
-		MissionTheme
-	};
+	MenuTheme,
+	MissionTheme
+    };
 }
 
 namespace SoundEffect
@@ -56,13 +56,12 @@ namespace Shaders
 {
     enum ID_t
     {
-		BrightnessPass,
-		DownSamplePass,
-		GaussianBlurPass,
-		AddPass,
-
-		Pixelate
-	};
+	BrightnessPass,
+	DownSamplePass,
+	GaussianBlurPass,
+	AddPass,
+	Pixelate
+    };
 }
 
 template <typename Resource, typename Identifier>

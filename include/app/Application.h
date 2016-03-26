@@ -19,36 +19,35 @@
 class Application : public sf::NonCopyable
 {
 	public:
-		explicit				Application(Config_t cfg);
+		explicit		Application(Config_t cfg);
 
-		void					Run();
+		void			Run();
 		
 	private:
 
-		void					ProcessInput();
-		void					Update(sf::Time dt);
-		void					Render();
+		void			ProcessInput();
+		void			Update(sf::Time dt);
+		void			Render();
 
-		void					UpdateStatistics(sf::Time dt);
-		void					RegisterStates();
+		void			UpdateStatistics(sf::Time dt);
+		void			RegisterStates();
 
 	private:
 
 		static const sf::Time	TimePerFrame;
 
-		sf::RenderWindow		m_window;
-		TextureHolder			m_textures;
-	  	FontHolder				m_fonts;
-		Player					m_player;
-        MusicPlayer             m_musicPlayer;
-        SoundPlayer             m_soudPlayer;
+		sf::RenderWindow	m_window;
+		TextureHolder		m_textures;
+		FontHolder		m_fonts;
+		Player			m_player;
+		MusicPlayer             m_musicPlayer;
+		SoundPlayer             m_soudPlayer;
 
+		StateStack		m_stateStack;
 
-		StateStack				m_stateStack;
-
-		sf::Text				m_statisticsText;
-        sf::Time				m_statisticsUpdateTime;
-		std::size_t				m_statisticsNumFrames;
+		sf::Text		m_statisticsText;
+		sf::Time			m_statisticsUpdateTime;
+		std::size_t		m_statisticsNumFrames;
 };
 
 #endif //APPLICATION_H_
