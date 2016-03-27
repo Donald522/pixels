@@ -86,22 +86,22 @@ std::vector<AircraftData> InitializeAircraftData()
             }
             if(!noInfo) {
                 if(pugi::xml_node hits = currentShip.child("hitpoints")) {
-                    if(!hits.attribute("value").value().empty()) {
+                    if(!hits.attribute("value").empty()) {
                         data[i].hitpoints = hits.attribute("value").as_int();
                     }
                 }
                 if(pugi::xml_node speed = currentShip.child("speed")) {
-                    if(!speed.attribute("value").value().empty()) {
+                    if(!speed.attribute("value").empty()) {
                         data[i].speed = speed.attribute("value").as_float();
                     }
                 }
                 if(pugi::xml_node fireInt = currentShip.child("fireInterval")) {
-                    if(!fireInt.attribute("value").value().empty()) {
+                    if(!fireInt.attribute("value").empty()) {
                         data[i].fireInterval = sf::seconds(fireInt.attribute("value").as_float());
                     }
                 }
                 if(pugi::xml_node texture = currentShip.child("texture")) {
-                    if(!texture.attribute("value").value().empty()) {
+                    if(!texture.attribute("value").empty()) {
                         data[i].texture = Textures::ID_t(texture.attribute("value").as_int());
                     }
                 }
@@ -109,7 +109,7 @@ std::vector<AircraftData> InitializeAircraftData()
                     std::vector<int> textureCoord;
                     textureCoord.reserve(4);
                     for(pugi::xml_node stream = texture.child("stream"); stream; stream = stream.next_sibling()) {
-                        if(!stream.attribute("value").value().empty()) {
+                        if(!stream.attribute("value").empty()) {
                             textureCoord.push_back(stream.attribute("value").as_int());
                         }
                         else {
@@ -130,14 +130,14 @@ std::vector<AircraftData> InitializeAircraftData()
                     moveParams.reserve(10);
                     for(pugi::xml_node dir = motion.child("Direction"); dir; dir = dir.next_sibling()) {
                         if(pugi::xml_node stream = dir.child("stream")) {
-                            if(!stream.attribute("value").value().empty()) {
+                            if(!stream.attribute("value").empty()) {
                                 float angle = stream.attribute("value").as_float();
                                 stream = stream.next_sibling();
                                 if(!stream) {
                                     errFlag = true;
                                     break;
                                 }
-                                if(!stream.attribute("value").value().empty()) {
+                                if(!stream.attribute("value").empty()) {
                                     float dist = stream.attribute("value").as_float();
                                     moveParams.push_back(std::make_pair(angle, dist));
                                 }
