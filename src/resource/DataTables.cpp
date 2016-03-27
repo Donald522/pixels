@@ -51,6 +51,7 @@ std::vector<AircraftData> InitializeAircraftData()
     // load values from xml
     pugi::xml_document doc;
     bool noInfo = false;
+    bool errFlag = false;
     pugi::xml_node currentShip;
     doc.load_file("Data/Tables/AircraftData.xml");
     if(pugi::xml_node mesh = doc.child("AircraftData")) {
@@ -85,37 +86,79 @@ std::vector<AircraftData> InitializeAircraftData()
             }
             if(!noInfo) {
                 if(pugi::xml_node hits = currentShip.child("hitpoints")) {
-                    data[i].hitpoints = hits.attribute("value").as_int();
+                    if(!hits.attribute("value").value().empty()) {
+                        data[i].hitpoints = hits.attribute("value").as_int();
+                    }
                 }
                 if(pugi::xml_node speed = currentShip.child("speed")) {
-                    data[i].speed = speed.attribute("value").as_float();
+                    if(!speed.attribute("value").value().empty()) {
+                        data[i].speed = speed.attribute("value").as_float();
+                    }
                 }
                 if(pugi::xml_node fireInt = currentShip.child("fireInterval")) {
-                    data[i].fireInterval = sf::seconds(fireInt.attribute("value").as_float());
+                    if(!fireInt.attribute("value").value().empty()) {
+                        data[i].fireInterval = sf::seconds(fireInt.attribute("value").as_float());
+                    }
                 }
                 if(pugi::xml_node texture = currentShip.child("texture")) {
-                    data[i].texture = Textures::ID_t(texture.attribute("value").as_int());
+                    if(!texture.attribute("value").value().empty()) {
+                        data[i].texture = Textures::ID_t(texture.attribute("value").as_int());
+                    }
                 }
                 if(pugi::xml_node texture = currentShip.child("textureRect")) {
-                    std::vector<int> tmp;
-                    tmp.reserve(4);
+                    std::vector<int> textureCoord;
+                    textureCoord.reserve(4);
                     for(pugi::xml_node stream = texture.child("stream"); stream; stream = stream.next_sibling()) {
-                        tmp.push_back(stream.attribute("value").as_int());
+                        if(!stream.attribute("value").value().empty()) {
+                            textureCoord.push_back(stream.attribute("value").as_int());
+                        }
+                        else {
+                            errFlag = true;
+                            break;
+                        }
                     }
-                    data[i].textureRect = sf::IntRect(tmp[0], tmp[1], tmp[2], tmp[3]);
+                    if(!errFlag) {
+                        data[i].textureRect = sf::IntRect(textureCoord[0], textureCoord[1],
+                                textureCoord[2], textureCoord[3]);
+                    }
+                    else {
+                        errFlag = false;
+                    }
                 }
                 if(pugi::xml_node motion = currentShip.child("Motion")) {
-                    std::vector<std::pair<float, float>> tmp;
-                    tmp.reserve(10);
+                    std::vector<std::pair<float, float>> moveParams;
+                    moveParams.reserve(10);
                     for(pugi::xml_node dir = motion.child("Direction"); dir; dir = dir.next_sibling()) {
-                        pugi::xml_node stream = dir.child("stream");
-                        float angle = stream.attribute("value").as_float();
-                        stream = stream.next_sibling();
-                        float dist = stream.attribute("value").as_float();
-                        tmp.push_back(std::make_pair(angle, dist));
+                        if(pugi::xml_node stream = dir.child("stream")) {
+                            if(!stream.attribute("value").value().empty()) {
+                                float angle = stream.attribute("value").as_float();
+                                stream = stream.next_sibling();
+                                if(!stream) {
+                                    errFlag = true;
+                                    break;
+                                }
+                                if(!stream.attribute("value").value().empty()) {
+                                    float dist = stream.attribute("value").as_float();
+                                    moveParams.push_back(std::make_pair(angle, dist));
+                                }
+                                else {
+                                    errFlag = true;
+                                    break;
+                                }
+                            }
+                            else {
+                                errFlag = true;
+                                break;
+                            }
+                        }
                     }
-                    for(auto &it : tmp) {
-                        data[i].directions.push_back(Direction(it.first, it.second));
+                    if(!errFlag) {
+                        for(auto &it : moveParams) {
+                            data[i].directions.push_back(Direction(it.first, it.second));
+                        }
+                    }
+                    else {
+                        errFlag = false;
                     }
                 }
             }
