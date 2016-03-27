@@ -33,12 +33,10 @@
 				<stream name = "dist" value = "80" />
 			</Direction>
 		</Motion>
-		<General>
-			<stream name = "hitpoints" value = "60" />
-			<stream name = "speed" value = "150" />
-			<stream name = "fireInterval" value = "100" />
-			<stream name = "texture" value = "0" />
-		</General>
+		<hitpoints value = "60" />
+		<speed value = "150" />
+		<fireInterval value = "100" />
+		<texture value = "0" />
 	</AlienEasy>
 	<AlienMedium>
 		<textureRect>
@@ -69,12 +67,10 @@
 				<stream name = "dist" value = "50" />
 			</Direction>
 		</Motion>
-		<General>
-			<stream name = "hitpoints" value = "50" />
-			<stream name = "speed" value = "130" />
-			<stream name = "fireInterval" value = "100" />
-			<stream name = "texture" value = "0" />
-		</General>	
+		<hitpoints value = "50" />
+		<speed value = "130" />
+		<fireInterval value = "100" />
+		<texture value = "0" />	
 	</AlienMedium>
 	<AlienTestBoss>
 		<textureRect>
@@ -97,11 +93,9 @@
 				<stream name = "dist" value = "400" />
 			</Direction>
 		</Motion>
-		<General>
-			<stream name = "hitpoints" value = "50" />
-			<stream name = "speed" value = "130" />
-			<stream name = "fireInterval" value = "100" />
-			<stream name = "texture" value = "0" />
-		</General>	
+		<hitpoints value = "50" />
+		<speed value = "130" />
+		<fireInterval value = "100" />
+		<texture value = "0" />	
 	</AlienTestBoss>
 </AircraftData>
