@@ -4,6 +4,7 @@
 #include "entity/Pickup.h"
 #include "effects/Particle.h"
 #include "log/Log.h"
+#include "pugixml/pugixml.hpp"
 
 using namespace std::placeholders;
 
@@ -11,6 +12,7 @@ std::vector<AircraftData> InitializeAircraftData()
 {
 	std::vector<AircraftData> data(Creature::TypeCount);
 
+    // values by default
 	data[Creature::PlayerStarship].hitpoints = 1000;
 	data[Creature::PlayerStarship].speed = 500.f;
 	data[Creature::PlayerStarship].fireInterval = sf::seconds(0.8f);
@@ -19,15 +21,16 @@ std::vector<AircraftData> InitializeAircraftData()
 
 	data[Creature::AlienEasy].hitpoints = 60;
 	data[Creature::AlienEasy].speed = 150.f;
-	data[Creature::AlienEasy].texture = Textures::Entities;
+    data[Creature::AlienEasy].fireInterval = sf::seconds(100);
+    data[Creature::AlienEasy].texture = Textures::Entities;
 	data[Creature::AlienEasy].textureRect = sf::IntRect( 247, 0, 114, 200 );
 	data[Creature::AlienEasy].directions.push_back(Direction(+45.f, 80.f));
 	data[Creature::AlienEasy].directions.push_back(Direction(-45.f, 160.f));
 	data[Creature::AlienEasy].directions.push_back(Direction(+45.f, 80.f));
-	data[Creature::AlienEasy].fireInterval = sf::seconds(100);
 
 	data[Creature::AlienMedium].hitpoints = 50;
 	data[Creature::AlienMedium].speed = 130.f;
+    data[Creature::AlienMedium].fireInterval = sf::seconds(100);
 	data[Creature::AlienMedium].texture = Textures::Entities;
 	data[Creature::AlienMedium].textureRect = sf::IntRect( 0, 0, 125, 238 );
 	data[Creature::AlienMedium].directions.push_back(Direction(+45.f,  50.f));
@@ -35,17 +38,92 @@ std::vector<AircraftData> InitializeAircraftData()
 	data[Creature::AlienMedium].directions.push_back(Direction(-45.f, 100.f));
 	data[Creature::AlienMedium].directions.push_back(Direction(  0.f,  50.f));
 	data[Creature::AlienMedium].directions.push_back(Direction(+45.f,  50.f));
-	data[Creature::AlienMedium].fireInterval = sf::seconds(100);
 
 	data[Creature::AlienTestBoss].hitpoints = 300;
 	data[Creature::AlienTestBoss].speed = 250.f;
+    data[Creature::AlienTestBoss].fireInterval = sf::seconds(3);
 	data[Creature::AlienTestBoss].texture = Textures::Entities;
 	data[Creature::AlienTestBoss].textureRect = sf::IntRect( 0, 0, 125, 238 );
 	data[Creature::AlienTestBoss].directions.push_back( Direction( +90.f, 400.f ) );
 	data[Creature::AlienTestBoss].directions.push_back( Direction( -90.f, 800.f ) );
 	data[Creature::AlienTestBoss].directions.push_back( Direction( +90.f, 400.f ) );
-	data[Creature::AlienTestBoss].fireInterval = sf::seconds( 3 );
 
+    // load values from xml
+    pugi::xml_document doc;
+    bool noInfo = false;
+    pugi::xml_node currentShip;
+    doc.load_file("Data/Tables/AircraftData.xml");
+    if(pugi::xml_node mesh = doc.child("AircraftData")) {
+        for(int i = 0; i < Creature::TypeCount; ++i) {
+            switch (i) {
+                case Creature::PlayerStarship:
+                    if(currentShip = mesh.child("PlayerStarship"));
+                    else {
+                        noInfo = true;
+                    }
+                    break;
+                case Creature::AlienEasy:
+                    if(currentShip = mesh.child("AlienEasy"));
+                    else {
+                        noInfo = true;
+                    }
+                    break;
+                case Creature::AlienMedium:
+                    if(currentShip = mesh.child("AlienMedium"));
+                    else {
+                        noInfo = true;
+                    }
+                    break;
+                case Creature::AlienTestBoss:
+                    if(currentShip = mesh.child("AlienTestBoss"));
+                    else {
+                        noInfo = true;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if(!noInfo) {
+                if(pugi::xml_node hits = currentShip.child("hitpoints")) {
+                    data[i].hitpoints = hits.attribute("value").as_int();
+                }
+                if(pugi::xml_node speed = currentShip.child("speed")) {
+                    data[i].speed = speed.attribute("value").as_float();
+                }
+                if(pugi::xml_node fireInt = currentShip.child("fireInterval")) {
+                    data[i].fireInterval = sf::seconds(fireInt.attribute("value").as_float());
+                }
+                if(pugi::xml_node texture = currentShip.child("texture")) {
+                    data[i].texture = Textures::ID_t(texture.attribute("value").as_int());
+                }
+                if(pugi::xml_node texture = currentShip.child("textureRect")) {
+                    std::vector<int> tmp;
+                    tmp.reserve(4);
+                    for(pugi::xml_node stream = texture.child("stream"); stream; stream = stream.next_sibling()) {
+                        tmp.push_back(stream.attribute("value").as_int());
+                    }
+                    data[i].textureRect = sf::IntRect(tmp[0], tmp[1], tmp[2], tmp[3]);
+                }
+                if(pugi::xml_node motion = currentShip.child("Motion")) {
+                    std::vector<std::pair<float, float>> tmp;
+                    tmp.reserve(10);
+                    for(pugi::xml_node dir = motion.child("Direction"); dir; dir = dir.next_sibling()) {
+                        pugi::xml_node stream = dir.child("stream");
+                        float angle = stream.attribute("value").as_float();
+                        stream = stream.next_sibling();
+                        float dist = stream.attribute("value").as_float();
+                        tmp.push_back(std::make_pair(angle, dist));
+                    }
+                    for(auto &it : tmp) {
+                        data[i].directions.push_back(Direction(it.first, it.second));
+                    }
+                }
+            }
+            else {
+                noInfo = false;
+            }
+        }
+    }
 	return data;
 }
 
