@@ -71,6 +71,7 @@ src/effects/BloomEffect.cpp
 src/player/Player.cpp
 src/states/State.cpp
 src/log/Log.cpp
+src/pugixml/pugixml.cpp
         )
 
 

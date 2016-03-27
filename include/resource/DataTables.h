@@ -21,33 +21,33 @@ struct Direction
 	{
 	}
 
-	float angle;
-	float distance;
+	float	angle;
+	float	distance;
 };
 
 struct AircraftData
 {
-	int								hitpoints;
-	float							speed;
-	Textures::ID_t					texture;
-	sf::IntRect						textureRect;
-	sf::Time						fireInterval;
-	std::vector<Direction>			directions;
+	int			hitpoints;
+	float			speed;
+	Textures::ID_t		texture;
+	sf::IntRect		textureRect;
+	sf::Time		fireInterval;
+	std::vector<Direction>	directions;
 };
 
 struct ProjectileData
 {
-	int								damage;
-	float							speed;
-	Textures::ID_t					texture;
-	sf::IntRect						textureRect;
+	int			damage;
+	float			speed;
+	Textures::ID_t		texture;
+	sf::IntRect		textureRect;
 };
 
 struct PickupData
 {
 	std::function<void(Creature&)>	action;
-	Textures::ID_t					texture;
-	sf::IntRect						textureRect;
+	Textures::ID_t			texture;
+	sf::IntRect			textureRect;
 };
 
 struct ParticleData {
