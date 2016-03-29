@@ -47,6 +47,7 @@ install:
 
 script:
     - make
+    - gcov src/pixels/Main.cpp
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
