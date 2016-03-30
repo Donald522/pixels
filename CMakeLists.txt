@@ -72,7 +72,10 @@ src/effects/BloomEffect.cpp
 src/player/Player.cpp
 src/states/State.cpp
 src/log/Log.cpp
-        src/world/Level.cpp include/world/Level.h)
+src/world/Level.cpp include/world/Level.h
+deps/pugixml/src/pugixml.cpp
+)
+
 
 
 set(PIXEL_LIB_NAME "game")
