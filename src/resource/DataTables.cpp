@@ -4,7 +4,7 @@
 #include "entity/Pickup.h"
 #include "effects/Particle.h"
 #include "log/Log.h"
-#include "pugixml/pugixml.hpp"
+#include "pugixml.hpp"
 
 using namespace std::placeholders;
 
