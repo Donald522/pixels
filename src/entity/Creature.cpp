@@ -274,6 +274,10 @@ void Creature::CreateBullets( SceneNode& node, const TextureHolder& textures ) c
 		CreateProjectile( node, type, +0.17f, 0.5f, textures );
 		CreateProjectile( node, type, +0.33f, 0.33f, textures );
 		break;
+	default:
+		CreateProjectile( node, type, 0.0f, 0.5f, textures );
+		break;
+
 	}
 }
 

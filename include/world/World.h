@@ -10,6 +10,7 @@
 #include "system/Command.h"
 #include "effects/BloomEffect.h"
 #include "music/SoundPlayer.h"
+#include "world/Level.h"
 
 #include "system/Config.h"
 #include "system/SceneGrid.h"
@@ -52,6 +53,8 @@ class World : private sf::NonCopyable
         float                               GetScrollSpeed() const;
 
 	private:
+
+        void                                LoadLevel();
 		void								LoadTextures();
 		void								AdaptPlayerPosition();
 		void								AdaptPlayerVelocity();
@@ -66,8 +69,6 @@ class World : private sf::NonCopyable
 		void								GuideMissiles();
 		sf::FloatRect						GetViewBounds() const;
 		sf::FloatRect						GetBattlefieldBounds() const;
-
-
 
 	private:
 
@@ -95,6 +96,7 @@ class World : private sf::NonCopyable
 
 
 	private:
+
 		sf::RenderTarget&					m_target;
 		sf::RenderTexture					m_sceneTexture;
 		sf::View							m_worldView;
@@ -120,6 +122,10 @@ class World : private sf::NonCopyable
 
 		BloomEffect							m_bloomEffect;
 		bool 								m_useBloomEffect;
+
+
+        Level                               m_level;
+
 };
 
 #endif // WORLD_H

@@ -129,6 +129,8 @@ std::string ToString(sf::Keyboard::Key key)
 		KEYTOSTRING_CASE(F14)
 		KEYTOSTRING_CASE(F15)
 		KEYTOSTRING_CASE(Pause)
+		default:
+			return "";
 	}
 
     return "";

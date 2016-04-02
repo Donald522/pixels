@@ -11,7 +11,7 @@ set(CMAKE_DEBUG_POSTFIX "_d")
 
 set(EXECUTABLE_NAME "pixels")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -O3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O3")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -22,6 +22,7 @@ IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 ENDIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 include_directories(${PROJECT_SOURCE_DIR}/include/)
+include_directories(deps/pugixml/src)
 
 
 
@@ -71,8 +72,10 @@ src/effects/BloomEffect.cpp
 src/player/Player.cpp
 src/states/State.cpp
 src/log/Log.cpp
-src/pugixml/pugixml.cpp
-        )
+src/world/Level.cpp include/world/Level.h
+deps/pugixml/src/pugixml.cpp
+)
+
 
 
 set(PIXEL_LIB_NAME "game")
