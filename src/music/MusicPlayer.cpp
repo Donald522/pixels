@@ -1,5 +1,4 @@
 #include "music/MusicPlayer.h"
-#include "log/Log.h"
 
 
 MusicPlayer::MusicPlayer()

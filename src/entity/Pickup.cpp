@@ -1,10 +1,8 @@
 #include "entity/Pickup.h"
 #include "resource/DataTables.h"
-#include "resource/Category.h"
 #include "system/CommandQueue.h"
 #include "util/Utility.h"
 #include "resource/ResourceHolder.h"
-#include "log/Log.h"
 
 #include <SFML/Graphics/RenderTarget.hpp>
 

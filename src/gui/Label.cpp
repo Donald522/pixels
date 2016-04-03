@@ -1,7 +1,6 @@
 #include "gui/Label.h"
 #include "util/Utility.h"
 
-#include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
 

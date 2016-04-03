@@ -1,9 +1,7 @@
 #include "resource/DataTables.h"
 #include "entity/Creature.h"
-#include "entity/Projectile.h"
 #include "entity/Pickup.h"
 #include "effects/Particle.h"
-#include "log/Log.h"
 
 using namespace std::placeholders;
 

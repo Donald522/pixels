@@ -1,7 +1,6 @@
 #include "states/StateStack.h"
 
 #include <cassert>
-#include "log/Log.h"
 
 
 

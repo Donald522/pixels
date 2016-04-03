@@ -1,10 +1,7 @@
 #include "world/World.h"
-#include "entity/Projectile.h"
 #include "entity/Pickup.h"
-#include "nodes/TextNode.h"
 #include "nodes/ParticleNode.h"
 #include "util/Utility.h"
-#include "log/Log.h"
 
 
 #include <SFML/Graphics/RenderWindow.hpp>

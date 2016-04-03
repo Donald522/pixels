@@ -1,9 +1,5 @@
 #include "gui/Button.h"
 #include "util/Utility.h"
-#include "resource/ResourceHolder.h"
-
-#include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
 

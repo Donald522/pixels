@@ -1,11 +1,7 @@
 #include "util/Utility.h"
 
-#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-#include <random>
-#include <cmath>
-#include <ctime>
 #include <cassert>
 
 class Animation;

@@ -1,7 +1,5 @@
 #include "app/Application.h"
 #include "util/Utility.h"
-#include "states/State.h"
-#include "states/StateIdentifiers.h"
 #include "states/TitleState.h"
 #include "states/GameState.h"
 #include "states/MenuState.h"

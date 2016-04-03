@@ -1,6 +1,5 @@
 #include "states/State.h"
 #include "states/StateStack.h"
-#include "log/Log.h"
 
 
 
