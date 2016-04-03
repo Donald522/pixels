@@ -8,6 +8,50 @@
 
 using namespace std::placeholders;
 
+namespace
+{
+    const char *aircraftDataFile = "Data/Tables/AircraftData.xml";
+}
+
+const char* EnumToString(size_t index)
+{
+    const char *result = "";
+    switch (index)
+    {
+        case Creature::PlayerStarship:
+            result = "PlayerStarship";
+            break;
+        case Creature::AlienEasy:
+            result = "AlienEasy";
+            break;
+        case Creature::AlienMedium:
+            result = "AlienMedium";
+            break;
+        case Creature::AlienTestBoss:
+            result = "AlienTestBoss";
+            break;
+        default:
+            break;
+    }
+    return result;
+}
+
+int FindStringInEnum(const char *search)
+{
+    int index = -1;
+    const char *current = NULL;
+    for(int i = 0; i < Creature::TypeCount; ++i)
+    {
+        current = EnumToString(i);
+        if(strcmp(search, current) == 0)
+        {
+            index = i;
+            beak;
+        }
+    }
+    return index;
+}
+
 std::vector<AircraftData> InitializeAircraftData()
 {
 	std::vector<AircraftData> data(Creature::TypeCount);
@@ -53,7 +97,8 @@ std::vector<AircraftData> InitializeAircraftData()
     bool noInfo = false;
     bool errFlag = false;
     pugi::xml_node currentShip;
-    doc.load_file("Data/Tables/AircraftData.xml");
+    pugi::xml_parse_result result = doc.load_file(aircraftDataFile);
+
     if(pugi::xml_node mesh = doc.child("AircraftData")) {
         for(int i = 0; i < Creature::TypeCount; ++i) {
             switch (i) {

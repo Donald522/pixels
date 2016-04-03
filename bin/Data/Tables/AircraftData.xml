@@ -1,101 +1,16 @@
 <?xml version="1.0"?>
 <AircraftData>
-	<PlayerStarship>
-		<textureRect>
-			<stream name = "x1" value = "126" />
-			<stream name = "x2" value = "0" />
-			<stream name = "x3" value = "120" />
-			<stream name = "x4" value = "120" />
-		</textureRect>
-		<hitpoints value = "1000" />
-		<speed value = "500" />
-		<fireInterval value = "0.8" />
-		<texture value = "0" />
-	</PlayerStarship>
-	<AlienEasy>
-		<textureRect>
-			<stream name = "x1" value = "247" />
-			<stream name = "x2" value = "0" />
-			<stream name = "x3" value = "114" />
-			<stream name = "x4" value = "200" />
-		</textureRect>
-		<Motion>
-			<Direction>
-				<stream name = "angle" value = "45" />
-				<stream name = "dist" value = "80" />
-			</Direction>
-			<Direction>
-				<stream name = "angle" value = "-45" />
-				<stream name = "dist" value = "160" />
-			</Direction>
-			<Direction>
-				<stream name = "angle" value = "45" />
-				<stream name = "dist" value = "80" />
-			</Direction>
-		</Motion>
-		<hitpoints value = "60" />
-		<speed value = "150" />
-		<fireInterval value = "100" />
-		<texture value = "0" />
-	</AlienEasy>
-	<AlienMedium>
-		<textureRect>
-			<stream name = "x1" value = "247" />
-			<stream name = "x2" value = "0" />
-			<stream name = "x3" value = "114" />
-			<stream name = "x4" value = "200" />
-		</textureRect>
-		<Motion>
-			<Direction>
-				<stream name = "angle" value = "45" />
-				<stream name = "dist" value = "50" />
-			</Direction>
-			<Direction>
-				<stream name = "angle" value = "0" />
-				<stream name = "dist" value = "50" />
-			</Direction>
-			<Direction>
-				<stream name = "angle" value = "-45" />
-				<stream name = "dist" value = "100" />
-			</Direction>
-			<Direction>
-				<stream name = "angle" value = "0" />
-				<stream name = "dist" value = "50" />
-			</Direction>
-			<Direction>
-				<stream name = "angle" value = "45" />
-				<stream name = "dist" value = "50" />
-			</Direction>
-		</Motion>
-		<hitpoints value = "50" />
-		<speed value = "130" />
-		<fireInterval value = "100" />
-		<texture value = "0" />	
-	</AlienMedium>
-	<AlienTestBoss>
-		<textureRect>
-			<stream name = "x1" value = "247" />
-			<stream name = "x2" value = "0" />
-			<stream name = "x3" value = "114" />
-			<stream name = "x4" value = "200" />
-		</textureRect>
-		<Motion>
-			<Direction>
-				<stream name = "angle" value = "90" />
-				<stream name = "dist" value = "400" />
-			</Direction>
-			<Direction>
-				<stream name = "angle" value = "-90" />
-				<stream name = "dist" value = "800" />
-			</Direction>
-			<Direction>
-				<stream name = "angle" value = "90" />
-				<stream name = "dist" value = "400" />
-			</Direction>
-		</Motion>
-		<hitpoints value = "50" />
-		<speed value = "130" />
-		<fireInterval value = "100" />
-		<texture value = "0" />	
-	</AlienTestBoss>
+    <Ship>
+        <data type = "PlayerStartship" hitpoints = "1000" speed = "100" fireInterval = "0.8" texture = "0"/>
+        <textureRect top="0" left="0" width="5" heigth="5"/>
+    </Ship>
+    <Ship>
+        <data type = "AlienEasy" hitpoints = "1000" speed = "100" fireInterval = "0.8" texture = "0"/>
+        <textureRect top="0" left="0" width="5" heigth="5"/>
+        <directions>
+            <direction angle="45" dist="80"/>
+            <direction angle="-45" dist="160"/>
+            <direction angle="45" dist="80"/>
+        </directions>
+    </Ship>
 </AircraftData>
