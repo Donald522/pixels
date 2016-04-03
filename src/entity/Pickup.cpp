@@ -19,7 +19,7 @@ Pickup::Pickup(SceneGrid* sceneGrid, Type_t type, const TextureHolder& textures 
 , m_type(type)
 , m_sprite(textures.Get(Table[type].texture), Table[type].textureRect)
 {
-	LogInfo( "Create pickup: type = " + std::to_string( type ) );
+	_LOG_INFO( "Create pickup: type = " + std::to_string( type ) );
 	CenterOrigin(m_sprite);
 }
 

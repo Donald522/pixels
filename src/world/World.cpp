@@ -35,7 +35,7 @@ World::World( sf::RenderTarget& outTarget, FontHolder& fonts, SoundPlayer& sound
 , m_spawnPosition( m_worldView.getSize().x / 2.f, m_worldBounds.height - m_worldView.getSize().y / 2.f )
 , m_scrollSpeed( worldScrollSpeed )
 , m_playerAircraft( nullptr )
-, m_enemySpawnPoints()
+//, m_enemySpawnPoints()
 , m_activeEnemies()
 , m_level()
 {
@@ -43,6 +43,11 @@ World::World( sf::RenderTarget& outTarget, FontHolder& fonts, SoundPlayer& sound
 	m_sceneTexture.create( m_target.getSize().x, m_target.getSize().y );
 
     LoadLevel();
+	m_level.Build();
+    m_worldBounds = sf::FloatRect(0.0f, 0.0f, m_worldView.getSize().x, m_level.GetLength());
+    m_spawnPosition = m_level.GetSpawnPosition();
+    m_scrollSpeed = m_level.GetScroolSpeed();
+
 	LoadTextures();
 	BuildScene();
 
@@ -52,7 +57,8 @@ World::World( sf::RenderTarget& outTarget, FontHolder& fonts, SoundPlayer& sound
 void World::Update(sf::Time dt)
 {
 	// Scroll the world
-	m_worldView.move(0.f, m_scrollSpeed * dt.asSeconds());	
+	m_worldView.move(0.f, m_scrollSpeed * dt.asSeconds());
+    m_level.MoveView(0.0f, m_level.GetScroolSpeed() * dt.asSeconds());
 	m_playerAircraft->SetVelocity( 0.f, 0.f );
 
 	DestroyEntitiesOutsideView();
@@ -263,9 +269,9 @@ void World::UpdateSounds()
 
 void World::BuildScene()
 {
-	LogInfo( "Building scene:" );
+	_LOG_INFO( "Building scene:" );
 	// Initialize the different layers
-	LogInfo( "Initialize layers" );
+	_LOG_INFO( "Initialize layers" );
 	for ( std::size_t i = 0; i < LayerCount; ++i )
 	{
 		Category::Type_t category = ( i == LowerAir ) ? Category::SceneAirLayer : Category::None;
@@ -277,44 +283,45 @@ void World::BuildScene()
 
 
 	//  tiled background
-	LogInfo("Tiled background texture");
+	_LOG_INFO("Tiled background texture");
 	sf::Texture& texture = m_textures.Get(Textures::Space);
 	sf::IntRect textureRect(m_worldBounds);
 	texture.setRepeated(true);
 
 	//  background sprite
-	LogInfo( "Background sprite" );
+	_LOG_INFO( "Background sprite" );
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
 	backgroundSprite->setPosition(m_worldBounds.left, m_worldBounds.top);
 	m_sceneLayers[Background]->AttachChild(std::move(backgroundSprite));
 
 	// player's creature
-	LogInfo( "Player's creature" );
+	_LOG_INFO( "Player's creature" );
 	std::unique_ptr<Creature> player(new Creature(&m_sceneGrid, Creature::PlayerStarship, m_textures, m_fonts));
 	m_playerAircraft = player.get();
 	m_playerAircraft->setPosition(m_spawnPosition);
 	m_sceneLayers[UpperAir]->AttachChild( std::move( player ) );
 
 
-	LogInfo( "Engine power" );
+	_LOG_INFO( "Engine power" );
 	std::unique_ptr<ParticleNode> propellantPlayerNode( new ParticleNode( Particle::EnginePower, m_textures ) );
 	m_sceneLayers[UpperAir]->AttachChild( std::move( propellantPlayerNode ) );
 
 	// particle node
-	LogInfo( "Particle node" );
+	_LOG_INFO( "Particle node" );
 	std::unique_ptr<ParticleNode> smokeNode( new ParticleNode( Particle::Smoke, m_textures ) );
 	m_sceneLayers[LowerAir]->AttachChild( std::move( smokeNode ) );
 
 	// propellant particle
-	LogInfo( "Propellant particle" );
+	_LOG_INFO( "Propellant particle" );
 	std::unique_ptr<ParticleNode> propellantNode( new ParticleNode( Particle::Propellant, m_textures ) );
 	m_sceneLayers[LowerAir]->AttachChild( std::move( propellantNode ) );
 
-	AddEnemies();
+	//AddEnemies();
 
-	LogInfo( "Finished building scene" );
+	_LOG_INFO( "Finished building scene" );
 }
 
+/*
 void World::AddEnemies()
 {
 	// Add enemies to the spawn point container
@@ -343,25 +350,26 @@ void World::AddEnemies()
 		return lhs.y < rhs.y;
 	});
 }
-
+*/
+/*
 void World::AddEnemy( Creature::Type_t type, float relX, float relY )
 {
 	LogInfo( "Add enemy: type = " + std::to_string( type ) + ", X = " + std::to_string( relX ) + ", Y = " + std::to_string( relY ) );
 	SpawnPoint_t spawn(type, m_spawnPosition.x + relX, m_spawnPosition.y - relY);
 	m_enemySpawnPoints.push_back(spawn);
 }
-
+*/
 void World::SpawnEnemies()
 {
 	// Spawn all enemies entering the view area (including distance) this frame
 
-	if ( GetViewBounds( ).top > m_spawnPosition.x - 700.0f && GetViewBounds( ).top <= m_spawnPosition.x - 850.0f )
-		ScrollStop();
-
-	while (!m_enemySpawnPoints.empty()
-		&& m_enemySpawnPoints.back().y > GetBattlefieldBounds().top)
+	//while (!m_enemySpawnPoints.empty()
+	//	&& m_enemySpawnPoints.back().y > GetBattlefieldBounds().top)
+    while (!m_level.GetSpawnPoints().empty()
+                && m_level.GetSpawnPoints().back().y > GetBattlefieldBounds().top)
 	{
-		SpawnPoint_t spawn = m_enemySpawnPoints.back();
+		//SpawnPoint_t spawn = m_enemySpawnPoints.back();
+        Level::SpawnPoint_t spawn = m_level.GetSpawnPoints().back();
 		if (spawn.type == Creature::AlienTestBoss)
 		{
 			std::cout << "BOSS\n";
@@ -374,7 +382,8 @@ void World::SpawnEnemies()
 		m_sceneLayers[UpperAir]->AttachChild( std::move( enemy ) );
 
 		// Enemy is spawned, remove from the list to spawn
-		m_enemySpawnPoints.pop_back();
+		//m_enemySpawnPoints.pop_back();
+        m_level.GetSpawnPoints().pop_back();
 	}
 }
 
@@ -452,7 +461,6 @@ sf::FloatRect World::GetBattlefieldBounds() const
 	sf::FloatRect bounds = GetViewBounds();
 	bounds.top -= 100.f;
 	bounds.height += 100.f;
-
 
 	return bounds;
 }

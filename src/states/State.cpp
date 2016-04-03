@@ -28,19 +28,19 @@ State::~State()
 
 void State::RequestStackPush(States::ID_t stateID)
 {
-	LogInfo( "Stack push id = " + std::to_string( stateID ) );
+	_LOG_INFO( "Stack push id = " + std::to_string( stateID ) );
 	m_stack->PushState(stateID);
 }
 
 void State::RequestStackPop()
 {
-	LogInfo( "Stack pop" );
+	_LOG_INFO( "Stack pop" );
 	m_stack->PopState();
 }
 
 void State::RequestStateClear()
 {
-	LogInfo( "Stack clear" );
+	_LOG_INFO( "Stack clear" );
 	m_stack->ClearStates();
 }
 

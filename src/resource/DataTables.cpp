@@ -7,6 +7,8 @@
 
 using namespace std::placeholders;
 
+//TODO: FIX texture loading
+
 std::vector<AircraftData> InitializeAircraftData()
 {
 	std::vector<AircraftData> data(Creature::TypeCount);

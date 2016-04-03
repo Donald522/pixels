@@ -21,7 +21,7 @@ namespace
 	auto RandomEngine = createRandomEngine();
 }
 
-std::string ToString(sf::Keyboard::Key key)
+std::string ToString(const sf::Keyboard::Key key)
 {
 	#define KEYTOSTRING_CASE(KEY) case sf::Keyboard::KEY: return #KEY;
 
@@ -171,12 +171,12 @@ int RandomInt(int exclusiveMax)
 	return distr(RandomEngine);
 }
 
-float VectorLength(sf::Vector2f vector)
+float VectorLength(const sf::Vector2f vector)
 {
 	return std::sqrt(vector.x * vector.x + vector.y * vector.y);
 }
 
-sf::Vector2f VectorUnit(sf::Vector2f vector)
+sf::Vector2f VectorUnit(const sf::Vector2f vector)
 {
 	assert(vector != sf::Vector2f(0.f, 0.f));
 	return vector / VectorLength(vector);

@@ -40,7 +40,8 @@ Creature::Creature( SceneGrid* sceneGrid, Type_t type, const TextureHolder& text
 , m_healthDisplay( nullptr )
 , m_missileDisplay( nullptr )
 {
-	LogInfo( "Create creature: type = " + std::to_string( type ) ); 
+	_LOG_INFO("Create creature");
+	//LogInfo( "Create creature: type = " + std::to_string( type ) );
 	m_explosion.SetFrameSize( sf::Vector2i( 256, 256 ) );
 	m_explosion.SetNumFrames( 16 );
 	m_explosion.SetRepeating( false );

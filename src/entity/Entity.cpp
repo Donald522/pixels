@@ -10,7 +10,7 @@ Entity::Entity(SceneGrid* sceneGrid, int hitpoints )
 {
 }
 
-void Entity::SetVelocity(sf::Vector2f velocity)
+void Entity::SetVelocity(const sf::Vector2f velocity)
 {
 	m_velocity = velocity;
 }
@@ -26,7 +26,7 @@ sf::Vector2f Entity::GetVelocity() const
 	return m_velocity;
 }
 
-void Entity::Accelerate(sf::Vector2f velocity)
+void Entity::Accelerate(const sf::Vector2f velocity)
 {
 	m_velocity += velocity;
 }

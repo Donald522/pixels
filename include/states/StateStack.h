@@ -81,7 +81,7 @@ class StateStack : private sf::NonCopyable
 template <typename T>
 void StateStack::RegisterState(States::ID_t stateID)
 {
-	LogInfo( "RegisterState id = " + std::to_string( stateID ) );
+	_LOG_INFO( "RegisterState id = " + std::to_string( stateID ) );
 	m_factories[stateID] = [this] ()
 	{
 		return State::Ptr_t(new T(*this, m_context));

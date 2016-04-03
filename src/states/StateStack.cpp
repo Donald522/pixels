@@ -66,7 +66,7 @@ bool StateStack::IsEmpty() const
 
 State::Ptr_t StateStack::CreateState(States::ID_t stateID)
 {
-	LogInfo( "Create state id = " + std::to_string(stateID));
+	_LOG_INFO( "Create state id = " + std::to_string(stateID));
 	auto found = m_factories.find(stateID);
 	assert(found != m_factories.end());
 
@@ -75,7 +75,7 @@ State::Ptr_t StateStack::CreateState(States::ID_t stateID)
 
 void StateStack::ApplyPendingChanges()
 {
-	for ( PendingChange_t change : m_pendingList )
+	for ( PendingChange_t& change : m_pendingList )
 	{
 		switch (change.action)
 		{

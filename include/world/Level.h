@@ -13,18 +13,6 @@
 class Level {
 public:
 
-            Level();
-    void    SetLevelLength(float length);
-    void    SetSpawnPosition(sf::Vector2f pos);
-    void    SetView(sf::View view);
-    void    SetScroolSpeed(float speed);
-    //TODO: add support
-    bool    LoadFromFile(const std::string fileName);
-    void    AddEnemy( Creature::Type_t type, float relX, float relY );
-
-
-private:
-
     struct SpawnPoint_t {
         SpawnPoint_t(Creature::Type_t type, float x, float y)
                 : type(type), x(x), y(y) {
@@ -35,6 +23,33 @@ private:
         float y;
     };
 
+public:
+
+                    Level();
+
+    void            SetLevelLength(float length);
+    void            SetSpawnPosition(const sf::Vector2f pos);
+    void            SetView(sf::View view);
+    void            SetScroolSpeed(float speed);
+
+    float           GetLength() const;
+    sf::Vector2f    GetSpawnPosition() const;
+    sf::View        GetView() const;
+    float           GetScroolSpeed() const;
+
+    std::vector<SpawnPoint_t>& GetSpawnPoints();
+
+    void            MoveView(float x, float y);
+
+
+    //TODO: add support
+    bool    LoadFromFile(const std::string fileName);
+    void    AddEnemy( Creature::Type_t type, float relX, float relY );
+
+    void Build();
+
+
+private:
 
     sf::FloatRect               m_worldBounds;
     sf::Vector2f                m_spawnPosition;

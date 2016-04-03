@@ -27,9 +27,9 @@ Application::Application(Config_t cfg)
 , m_statisticsUpdateTime()
 , m_statisticsNumFrames(0)
 {
-	LogInfo("Window major version: "	+ std::to_string(m_window.getSettings().majorVersion));
-	LogInfo("Window minor version: "	+ std::to_string(m_window.getSettings().minorVersion));
-	LogInfo("Window depth: "			+ std::to_string(m_window.getSettings().depthBits));
+	_LOG_INFO("Window major version: "	+ std::to_string(m_window.getSettings().majorVersion));
+	_LOG_INFO("Window minor version: "	+ std::to_string(m_window.getSettings().minorVersion));
+	_LOG_INFO("Window depth: "			+ std::to_string(m_window.getSettings().depthBits));
 
 
 	//State::Context_t(m_window, m_textures, m_fonts, m_player, m_musicPlayer, m_soudPlayer);

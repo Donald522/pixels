@@ -15,9 +15,9 @@ class Entity : public SceneNode
 
 		explicit			Entity( SceneGrid* sceneGrid, int hitpoints );
 
-		void				SetVelocity(sf::Vector2f velocity);
+		void				SetVelocity(const sf::Vector2f velocity);
 		void				SetVelocity(float vx, float vy);
-		void				Accelerate(sf::Vector2f velocity);
+		void				Accelerate(const sf::Vector2f velocity);
 		void				Accelerate(float vx, float vy);
 		sf::Vector2f		GetVelocity() const;
 
@@ -35,6 +35,7 @@ class Entity : public SceneNode
 		SceneGrid*			m_sceneGrid;
 
 	private:
+
 
 		sf::Vector2f		m_velocity;
 		int					m_hitpoints;
