@@ -45,7 +45,7 @@ int FindStringInEnum(const char *search)
         if(strcmp(search, current) == 0)
         {
             index = i;
-            beak;
+            break;
         }
     }
     return index;
