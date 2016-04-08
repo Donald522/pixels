@@ -13,18 +13,18 @@ class Entity : public SceneNode
 
 	public:
 
-		explicit		Entity( SceneGrid* sceneGrid, int hitpoints );
+		explicit			Entity( SceneGrid* sceneGrid, int hitpoints );
 
-		void			SetVelocity(sf::Vector2f velocity);
-		void			SetVelocity(float vx, float vy);
-		void			Accelerate(sf::Vector2f velocity);
-		void			Accelerate(float vx, float vy);
+		void				SetVelocity(const sf::Vector2f velocity);
+		void				SetVelocity(float vx, float vy);
+		void				Accelerate(const sf::Vector2f velocity);
+		void				Accelerate(float vx, float vy);
 		sf::Vector2f		GetVelocity() const;
 
-		int			GetHitpoints() const;
-		void			Repair(int points);
-		void			Damage(int points);
-		void			Destroy();
+		int					GetHitpoints() const;
+		void				Repair(int points);
+		void				Damage(int points);
+		void				Destroy();
 		virtual void		Remove( );
 		virtual bool		IsDestroyed() const;
 
@@ -32,12 +32,13 @@ class Entity : public SceneNode
 	protected:
 
 		virtual void		UpdateCurrent(sf::Time dt, CommandQueue& commands);
-		SceneGrid*		m_sceneGrid;
+		SceneGrid*			m_sceneGrid;
 
 	private:
 
+
 		sf::Vector2f		m_velocity;
-		int			m_hitpoints;
+		int					m_hitpoints;
 };
 
 #endif // ENTITY_H

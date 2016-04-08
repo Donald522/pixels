@@ -1,16 +1,16 @@
 #include <iostream>
-
+#include "log/Log.h"
 
 
 template <typename Resource, typename Identifier>
 void ResourceHolder<Resource, Identifier>::Load(Identifier id, const std::string& filename)
 {
 	//std::cout << "[INFO]: Loading resource: id = " << id << ", filename = " << filename;
-	LogInfo( "Loading resource: id = " + std::to_string(id) + ", filename = " + filename );
+    _LOG_INFO( "Loading resource: id = " + std::to_string(id) + ", filename = " + filename );
 	std::unique_ptr<Resource> resource(new Resource());
 	if (!resource->loadFromFile(filename))
 	{
-		LogError( "ResourceHolder::load - Failed to load " + filename );
+		_LOG_ERR("ResourceHolder::load - Failed to load " + filename);
 		throw std::runtime_error( "ResourceHolder::load - Failed to load " + filename + "\n" );
 	}
 
@@ -23,11 +23,11 @@ template <typename Parameter>
 void ResourceHolder<Resource, Identifier>::Load(Identifier id, const std::string& filename, const Parameter& secondParam)
 {
 	//std::cout << "[INFO]: Loading resource: id = " << id << ", filename = " << filename;
-	LogInfo( "Loading resource: id = " + std::to_string( id ) + ", filename = " + filename );
+    _LOG_INFO( "Loading resource: id = " + std::to_string( id ) + ", filename = " + filename );
 	std::unique_ptr<Resource> resource(new Resource());
 	if ( !resource->loadFromFile( filename, secondParam ) )
 	{
-		LogError( "ResourceHolder::load - Failed to load " + filename);
+		_LOG_ERR("ResourceHolder::load - Failed to load " + filename);
 		throw std::runtime_error( "ResourceHolder::load - Failed to load " + filename + "\n" );
 	}
 

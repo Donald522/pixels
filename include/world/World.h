@@ -62,8 +62,8 @@ class World : private sf::NonCopyable
         void                                UpdateSounds();
 		
 		void								BuildScene();
-		void								AddEnemies();
-		void								AddEnemy( Creature::Type_t type, float relX, float relY );
+		//void								AddEnemies();
+		//void								AddEnemy( Creature::Type_t type, float relX, float relY );
 		void								SpawnEnemies();
 		void								DestroyEntitiesOutsideView();
 		void								GuideMissiles();
@@ -80,6 +80,7 @@ class World : private sf::NonCopyable
 			LayerCount
 		};
 
+    /*
 		struct SpawnPoint_t 
 		{
 			SpawnPoint_t( Creature::Type_t type, float x, float y )
@@ -93,6 +94,7 @@ class World : private sf::NonCopyable
 			float x;
 			float y;
 		};
+    */
 
 
 	private:
@@ -117,7 +119,7 @@ class World : private sf::NonCopyable
 		float								m_scrollSpeed;
 		Creature*							m_playerAircraft;
 
-		std::vector<SpawnPoint_t>			m_enemySpawnPoints;
+		//std::vector<SpawnPoint_t>			m_enemySpawnPoints;
 		std::vector<Creature*>				m_activeEnemies;
 
 		BloomEffect							m_bloomEffect;

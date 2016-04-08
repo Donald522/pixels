@@ -16,7 +16,7 @@ namespace Textures
     {
 	Entities,
 	Space,
-        Buttons,
+	Buttons,
 	TitleScreen,
 	Menu,
 	LevelSelect,

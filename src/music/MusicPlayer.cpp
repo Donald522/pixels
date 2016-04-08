@@ -1,5 +1,4 @@
 #include "music/MusicPlayer.h"
-#include "log/Log.h"
 
 
 MusicPlayer::MusicPlayer()
@@ -15,7 +14,7 @@ void MusicPlayer::Play( Music::ID_t theme )
 {
     if (!m_music.openFromFile(m_fileNames[theme]))
     {
-        LogError("Can't open music " + m_fileNames[theme]);
+        //_LOG_ERR("Can't open music " + m_fileNames[theme].c_str());
 		//throw std::runtime_error("Music " + m_fileNames[theme] + " could not be opened.");
         return;
     }

@@ -1,6 +1,5 @@
 #include "resource/DataTables.h"
 #include "entity/Creature.h"
-#include "entity/Projectile.h"
 #include "entity/Pickup.h"
 #include "effects/Particle.h"
 #include "log/Log.h"
@@ -51,6 +50,10 @@ int FindStringInEnum(const char *search)
     }
     return index;
 }
+
+using namespace std::placeholders;
+
+//TODO: FIX texture loading
 
 std::vector<AircraftData> InitializeAircraftData()
 {

@@ -1,10 +1,8 @@
 #include "entity/Pickup.h"
 #include "resource/DataTables.h"
-#include "resource/Category.h"
 #include "system/CommandQueue.h"
 #include "util/Utility.h"
 #include "resource/ResourceHolder.h"
-#include "log/Log.h"
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
@@ -19,7 +17,7 @@ Pickup::Pickup(SceneGrid* sceneGrid, Type_t type, const TextureHolder& textures 
 , m_type(type)
 , m_sprite(textures.Get(Table[type].texture), Table[type].textureRect)
 {
-	LogInfo( "Create pickup: type = " + std::to_string( type ) );
+	_LOG_INFO( "Create pickup: type = " + std::to_string( type ) );
 	CenterOrigin(m_sprite);
 }
 
