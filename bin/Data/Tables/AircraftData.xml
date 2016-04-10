@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <AircraftData>
-    <Ship>
-        <data type = "PlayerStartship" hitpoints = "1000" speed = "100" fireInterval = "0.8" texture = "0"/>
-        <textureRect top="0" left="0" width="5" heigth="5"/>
-    </Ship>
-    <Ship>
-        <data type = "AlienEasy" hitpoints = "1000" speed = "100" fireInterval = "0.8" texture = "0"/>
-        <textureRect top="0" left="0" width="5" heigth="5"/>
-        <directions>
-            <direction angle="45" dist="80"/>
-            <direction angle="-45" dist="160"/>
-            <direction angle="45" dist="80"/>
-        </directions>
-    </Ship>
+	<Ship type = "PlayerStarship">
+		<data hitpoints = "5000" speed = "800" fireInterval = "0.2" texture = "0"/>
+		<textureRect top="126" left="0" width="120" height="120"/>
+	</Ship>
+	<Ship type = "AlienEasy">
+		<data hitpoints = "70" speed = "100" fireInterval = "0.8" texture = "0"/>
+		<textureRect top="247" left="0" width="114" height="200"/>
+		<directions>
+			<direction angle="15" dist="30"/>
+			<direction angle="-5" dist="100"/>
+			<direction angle="75" dist="10"/>
+		</directions>
+	</Ship>
 </AircraftData>
