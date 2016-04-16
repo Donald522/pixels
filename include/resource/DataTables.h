@@ -7,6 +7,8 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
+#include "pugixml.hpp"
+
 #include <vector>
 #include <functional>
 
@@ -55,6 +57,45 @@ struct ParticleData {
 	sf::Time	lifetime;
 };
 
+struct AircraftFileWalker_t: pugi::xml_tree_walker
+{
+    AircraftFileWalker_t(std::vector<AircraftData> &data, std::size_t type)
+    : m_data(data)
+    , m_shipType(type)
+    {
+    }
+    virtual bool for_each(pugi::xml_node& node);
+private:
+    std::vector<AircraftData>&	      m_data;
+    const std::size_t		      m_shipType;
+
+};
+
+struct ProjectileFileWalker_t: pugi::xml_tree_walker
+{
+    ProjectileFileWalker_t(std::vector<ProjectileData> &data, std::size_t type)
+    : m_data(data)
+    , m_bulletType(type)
+    {
+    }
+    virtual bool for_each(pugi::xml_node& node);
+private:
+    std::vector<ProjectileData>& 	m_data;
+    const std::size_t			m_bulletType;
+
+};
+
+const char* CreatureEnumToString(size_t index);
+std::size_t CreatureFindStringInEnum(const char *search);
+
+const char* ProjectileEnumToString(size_t index);
+std::size_t ProjectileFindStringInEnum(const char *search);
+
+const char* PickupEnumToString(size_t index);
+std::size_t PickupFindStringInEnum(const char *search);
+
+const char* ParticleEnumToString(size_t index);
+std::size_t ParticleFindStringInEnum(const char *search);
 
 std::vector<AircraftData>	InitializeAircraftData();
 std::vector<ProjectileData>	InitializeProjectileData();

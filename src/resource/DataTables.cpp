@@ -10,9 +10,12 @@ using namespace std::placeholders;
 namespace
 {
     const char *aircraftDataFile = "Data/Tables/AircraftData.xml";
+    const char *projectileDataFile = "Data/Tables/ProjectileData.xml";
 }
 
-const char* EnumToString(size_t index)
+//================================================================================//
+
+const char* CreatureEnumToString(size_t index)
 {
     const char *result = "";
     switch (index)
@@ -35,14 +38,14 @@ const char* EnumToString(size_t index)
     return result;
 }
 
-int FindStringInEnum(const char *search)
+std::size_t CreatureFindStringInEnum(const char *search)
 {
-    int index = -1;
+    std::size_t index = Creature::TypeCount;
     const char *current = NULL;
     for(int i = 0; i < Creature::TypeCount; ++i)
     {
-        current = EnumToString(i);
-        if(strcmp(search, current) == 0)
+        current = CreatureEnumToString(i);
+        if(!strcmp(search, current))
         {
             index = i;
             break;
@@ -51,77 +54,70 @@ int FindStringInEnum(const char *search)
     return index;
 }
 
-struct simple_walker: pugi::xml_tree_walker
+bool AircraftFileWalker_t::for_each(pugi::xml_node& node)
 {
-public:
-    simple_walker(std::vector<AircraftData> &data, std::size_t type) : _data(data), shipType(type) {}
-    virtual bool for_each(pugi::xml_node& node)
+    if(strcmp("data", node.name()) == 0)
     {
-        if(strcmp("data", node.name()) == 0)
+        for (pugi::xml_attribute attr = node.first_attribute(); attr; attr = attr.next_attribute())
         {
-            for (pugi::xml_attribute attr = node.first_attribute(); attr; attr = attr.next_attribute())
+            if(!strcmp("hitpoints", attr.name()))
             {
-                if(strcmp("hitpoints", attr.name()) == 0)
-                {
-                    _data[shipType].hitpoints = attr.as_int();
-                }
-                else if(strcmp("speed", attr.name()) == 0)
-                {
-                    _data[shipType].speed = attr.as_float();
-                }
-                else if(strcmp("fireInterval", attr.name()) == 0)
-                {
-                    _data[shipType].fireInterval = sf::seconds(attr.as_float());
-                }
-                else if(strcmp("texture", attr.name()) == 0)
-                {
-                    _data[shipType].texture = Textures::ID_t(attr.as_int());
-                }
+                m_data[m_shipType].hitpoints = attr.as_int();
+            }
+            else if(!strcmp("speed", attr.name()))
+            {
+                m_data[m_shipType].speed = attr.as_float();
+            }
+            else if(!strcmp("fireInterval", attr.name()))
+            {
+                m_data[m_shipType].fireInterval = sf::seconds(attr.as_float());
+            }
+            else if(!strcmp("texture", attr.name()))
+            {
+                m_data[m_shipType].texture = Textures::ID_t(attr.as_int());
             }
         }
-        else if(strcmp("textureRect", node.name()) == 0)
-        {
-            if(!node.attribute("top").empty())
-            {
-                if(!node.attribute("left").empty())
-                {
-                    if(!node.attribute("width").empty())
-                    {
-                        if(!node.attribute("height").empty())
-                        {
-                            int top = node.attribute("top").as_int();
-                            int left = node.attribute("left").as_int();
-                            int width = node.attribute("width").as_int();
-                            int height = node.attribute("height").as_int();
-                            _data[shipType].textureRect = sf::IntRect(top, left, width, height);
-                        }
-                    }
-                }
-            }
-        }
-        else if(strcmp("directions", node.name()) == 0)
-        {
-            if(std::distance(node.children().begin(), node.children().end()) > 0)
-            {
-                _data[shipType].directions.clear();
-                for(pugi::xml_node dir: node.children("direction"))
-                {
-                    if(!dir.attribute("angle").empty())
-                    {
-                        if(!dir.attribute("dist").empty())
-                        {
-                            _data[shipType].directions.push_back(Direction(dir.attribute("angle").as_float(), dir.attribute("dist").as_float()));
-                        }
-                    }
-                }
-            }
-        }
-        return true; // continue traversal
     }
-private:
-    std::vector<AircraftData>&  _data;
-    const std::size_t			shipType;
-};
+    else if(strcmp("textureRect", node.name()) == 0)
+    {
+        if(!node.attribute("top").empty())
+        {
+            if(!node.attribute("left").empty())
+            {
+                if(!node.attribute("width").empty())
+                {
+                    if(!node.attribute("height").empty())
+                    {
+                        int top = node.attribute("top").as_int();
+                        int left = node.attribute("left").as_int();
+                        int width = node.attribute("width").as_int();
+                        int height = node.attribute("height").as_int();
+                        m_data[m_shipType].textureRect = sf::IntRect(top, left, width, height);
+                    }
+                }
+            }
+        }
+    }
+    else if(strcmp("directions", node.name()) == 0)
+    {
+        if(std::distance(node.children().begin(), node.children().end()) > 0)
+        {
+            m_data[m_shipType].directions.clear();
+            for(pugi::xml_node dir: node.children("direction"))
+            {
+                if(!dir.attribute("angle").empty())
+                {
+                    if(!dir.attribute("dist").empty())
+                    {
+                        m_data[m_shipType].directions.push_back(Direction(dir.attribute("angle").as_float(), dir.attribute("dist").as_float()));
+                    }
+                }
+            }
+        }
+    }
+    return true; // continue traversal
+}
+
 
 //TODO: FIX texture loading
 
@@ -175,11 +171,11 @@ std::vector<AircraftData> InitializeAircraftData()
             {
                 if(!ship.attribute("type").empty())
                 {
-                    std::size_t shipType = FindStringInEnum(ship.attribute("type").as_string());
+                    std::size_t shipType = CreatureFindStringInEnum(ship.attribute("type").as_string());
                     if(shipType < Creature::TypeCount)
                     {
-                        simple_walker walker(data, shipType);
-                        ship.traverse(walker);
+                        AircraftFileWalker_t shipNodeWalker(data, shipType);
+                        ship.traverse(shipNodeWalker);
                     }
                 }
             }
@@ -187,6 +183,45 @@ std::vector<AircraftData> InitializeAircraftData()
     }
     return data;
 }
+
+//================================================================================//
+
+const char* ProjectileEnumToString(size_t index)
+{
+    const char *result = "";
+    switch (index)
+    {
+        case Projectile::AlliedBullet:
+            result = "AlliedBullet";
+            break;
+        case Projectile::EnemyBullet:
+            result = "EnemyBullet";
+            break;
+        case Projectile::Missile:
+            result = "Missile";
+            break;
+        default:
+            break;
+    }
+    return result;
+}
+
+std::size_t ProjectileFindStringInEnum(const char *search)
+{
+    std::size_t index = Projectile::TypeCount;
+    const char *current = NULL;
+    for(int i = 0; i < Projectile::TypeCount; ++i)
+    {
+        current = ProjectileEnumToString(i);
+        if(!strcmp(search, current))
+        {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+
 
 std::vector<ProjectileData> InitializeProjectileData()
 {
@@ -209,6 +244,8 @@ std::vector<ProjectileData> InitializeProjectileData()
 
     return data;
 }
+
+//================================================================================//
 
 std::vector<PickupData> InitializePickupData()
 {
