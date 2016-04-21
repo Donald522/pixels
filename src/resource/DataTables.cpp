@@ -45,7 +45,7 @@ std::size_t CreatureFindStringInEnum(const char *search)
     for(int i = 0; i < Creature::TypeCount; ++i)
     {
         current = CreatureEnumToString(i);
-        if(!strcmp(search, current))
+		if(!strcmp(search, current))
         {
             index = i;
             break;
@@ -56,11 +56,11 @@ std::size_t CreatureFindStringInEnum(const char *search)
 
 bool AircraftFileWalker_t::for_each(pugi::xml_node& node)
 {
-    if(strcmp("data", node.name()) == 0)
+	if(!strcmp("data", node.name()))
     {
         for (pugi::xml_attribute attr = node.first_attribute(); attr; attr = attr.next_attribute())
         {
-            if(!strcmp("hitpoints", attr.name()))
+			if(!strcmp("hitpoints", attr.name()))
             {
                 m_data[m_shipType].hitpoints = attr.as_int();
             }
@@ -78,7 +78,7 @@ bool AircraftFileWalker_t::for_each(pugi::xml_node& node)
             }
         }
     }
-    else if(strcmp("textureRect", node.name()) == 0)
+	else if(!strcmp("textureRect", node.name()))
     {
         if(!node.attribute("top").empty())
         {
@@ -98,7 +98,7 @@ bool AircraftFileWalker_t::for_each(pugi::xml_node& node)
             }
         }
     }
-    else if(strcmp("directions", node.name()) == 0)
+	else if(!strcmp("directions", node.name()))
     {
         if(std::distance(node.children().begin(), node.children().end()) > 0)
         {
@@ -213,7 +213,7 @@ std::size_t ProjectileFindStringInEnum(const char *search)
     for(int i = 0; i < Projectile::TypeCount; ++i)
     {
         current = ProjectileEnumToString(i);
-        if(!strcmp(search, current))
+		if(!strcmp(search, current))
         {
             index = i;
             break;
@@ -222,6 +222,47 @@ std::size_t ProjectileFindStringInEnum(const char *search)
     return index;
 }
 
+bool ProjectileFileWalker_t::for_each(pugi::xml_node& node)
+{
+	if(!strcmp("data", node.name()))
+	{
+		for (pugi::xml_attribute attr = node.first_attribute(); attr; attr = attr.next_attribute())
+		{
+			if(!strcmp("damage", attr.name()))
+			{
+				m_data[m_bulletType].damage = attr.as_int();
+			}
+			else if(!strcmp("speed", attr.name()))
+			{
+				m_data[m_bulletType].speed = attr.as_float();
+			}
+			else if(!strcmp("texture", attr.name()))
+			{
+				m_data[m_bulletType].texture = Textures::ID_t(attr.as_int());
+			}
+		}
+	}
+	else if(!strcmp("textureRect", node.name()))
+	{
+		if(!node.attribute("top").empty())
+		{
+			if(!node.attribute("left").empty())
+			{
+				if(!node.attribute("width").empty())
+				{
+					if(!node.attribute("height").empty())
+					{
+						int top = node.attribute("top").as_int();
+						int left = node.attribute("left").as_int();
+						int width = node.attribute("width").as_int();
+						int height = node.attribute("height").as_int();
+						m_data[m_bulletType].textureRect = sf::IntRect(top, left, width, height);
+					}
+				}
+			}
+		}
+	}
+}
 
 std::vector<ProjectileData> InitializeProjectileData()
 {
@@ -242,10 +283,71 @@ std::vector<ProjectileData> InitializeProjectileData()
     data[Projectile::Missile].texture = Textures::Entities;
     data[Projectile::Missile].textureRect = sf::IntRect( 126, 203, 15, 32 );
 
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file(projectileDataFile);
+	if(result) {
+		pugi::xml_node bullets = doc.child("ProjectileData");
+		if(bullets)
+		{
+			for(pugi::xml_node bullet: bullets.children("Bullet"))
+			{
+				if(!bullet.attribute("type").empty())
+				{
+					std::size_t bulletType = ProjectileFindStringInEnum(bullet.attribute("type").as_string());
+					if(bulletType < Projectile::TypeCount)
+					{
+						ProjectileFileWalker_t bulletNodeWalker(data, bulletType);
+						bullet.traverse(bulletNodeWalker);
+					}
+				}
+			}
+		}
+	}
+
     return data;
 }
 
 //================================================================================//
+
+const char* PickupEnumToString(size_t index)
+{
+	const char *result = "";
+	switch (index)
+	{
+		case Pickup::HealthRefill:
+			result = "HealthRefill";
+			break;
+		case Pickup::MissileRefill:
+			result = "MissileRefill";
+			break;
+		case Pickup::FireSpread:
+			result = "FireSpread";
+			break;
+		case Pickup::FireRate:
+			result = "FireRate";
+			break;
+		default:
+			break;
+	}
+	return result;
+}
+
+std::size_t PickupFindStringInEnum(const char *search)
+{
+	std::size_t index = Pickup::TypeCount;
+	const char *current = NULL;
+	for(int i = 0; i < Pickup::TypeCount; ++i)
+	{
+		current = PickupEnumToString(i);
+		if(!strcmp(search, current))
+		{
+			index = i;
+			break;
+		}
+	}
+	return index;
+}
+
 
 std::vector<PickupData> InitializePickupData()
 {
@@ -270,6 +372,8 @@ std::vector<PickupData> InitializePickupData()
     return data;
 }
 
+//================================================================================//
+
 std::vector<ParticleData> InitializeParticleData()
 {
     std::vector<ParticleData> data( Particle::ParticleCount );
@@ -285,3 +389,5 @@ std::vector<ParticleData> InitializeParticleData()
 
     return data;
 }
+
+//================================================================================//

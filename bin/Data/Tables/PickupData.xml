@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<PickupData>
+	<Pickup type = "HealthRefill">
+		<data damage = "20" speed = "600" texture = "0"/>
+		<textureRect top="208" left="121" width="3" height="14"/>
+	</Pickup>
+	<Pickup type = "MissileRefill">
+		<data damage = "10" speed = "300" texture = "0"/>
+		<textureRect top="126" left="0" width="120" height="120"/>
+	</Pickup>
+	<Pickup type = "FireSpread">
+		<data damage = "200" speed = "200" texture = "0"/>
+		<textureRect top="126" left="203" width="15" height="32"/>
+	</Pickup>
+	<Pickup type = "FireRate">
+		<data damage = "200" speed = "200" texture = "0"/>
+		<textureRect top="126" left="203" width="15" height="32"/>
+	</Pickup>
+</PickupData>

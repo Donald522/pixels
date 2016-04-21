@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ProjectileData>
+	<Bullet type = "AlliedBullet">
+		<data damage = "20" speed = "600" texture = "0"/>
+		<textureRect top="208" left="121" width="3" height="14"/>
+	</Bullet>
+	<Bullet type = "EnemyBullet">
+		<data damage = "10" speed = "300" texture = "0"/>
+		<textureRect top="126" left="0" width="120" height="120"/>
+	</Bullet>
+	<Bullet type = "Missile">
+		<data damage = "200" speed = "200" texture = "0"/>
+		<textureRect top="126" left="203" width="15" height="32"/>
+	</Bullet>
+</ProjectileData>

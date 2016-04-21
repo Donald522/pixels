@@ -85,6 +85,20 @@ private:
 
 };
 
+struct PickupFileWalker_t: pugi::xml_tree_walker
+{
+    PickupFileWalker_t(std::vector<PickupData> &data, std::size_t type)
+    : m_data(data)
+    , m_pickupType(type)
+    {
+    }
+    virtual bool for_each(pugi::xml_node& node);
+private:
+    std::vector<PickupData>&		m_data;
+    const std::size_t			m_pickupType;
+
+};
+
 const char* CreatureEnumToString(size_t index);
 std::size_t CreatureFindStringInEnum(const char *search);
 

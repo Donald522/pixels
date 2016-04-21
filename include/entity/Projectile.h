@@ -10,16 +10,14 @@ class SceneGrid;
 
 class Projectile : public Entity
 {
-	public:
-
-		enum Type_t
-		{
-			AlliedBullet,
-			EnemyBullet,
-			Missile,
-
-			TypeCount
-		};
+public:
+    enum Type_t
+    {
+	AlliedBullet,
+	EnemyBullet,
+	Missile,
+	TypeCount
+    };
 
 
 public:
