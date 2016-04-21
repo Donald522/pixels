@@ -11,6 +11,8 @@ namespace
 {
     const char *aircraftDataFile = "Data/Tables/AircraftData.xml";
     const char *projectileDataFile = "Data/Tables/ProjectileData.xml";
+	const char *pickupDataFile = "Data/Tables/PickupData.xml";
+	const char *particleDataFile = "Data/Tables/ParticleData.xml";
 }
 
 //================================================================================//
@@ -262,6 +264,7 @@ bool ProjectileFileWalker_t::for_each(pugi::xml_node& node)
 			}
 		}
 	}
+	return true;
 }
 
 std::vector<ProjectileData> InitializeProjectileData()
@@ -285,7 +288,8 @@ std::vector<ProjectileData> InitializeProjectileData()
 
 	pugi::xml_document doc;
 	pugi::xml_parse_result result = doc.load_file(projectileDataFile);
-	if(result) {
+	if(result)
+	{
 		pugi::xml_node bullets = doc.child("ProjectileData");
 		if(bullets)
 		{
@@ -348,6 +352,53 @@ std::size_t PickupFindStringInEnum(const char *search)
 	return index;
 }
 
+bool PickupFileWalker_t::for_each(pugi::xml_node& node)
+{
+	if(!strcmp("data", node.name()))
+	{
+		for (pugi::xml_attribute attr = node.first_attribute(); attr; attr = attr.next_attribute())
+		{
+			if(!strcmp("texture", attr.name()))
+			{
+				m_data[m_pickupType].texture = Textures::ID_t(attr.as_int());
+			}
+			if(!strcmp("action", attr.name()))
+			{
+				if(m_pickupType == Pickup::HealthRefill)
+				{
+					int health = attr.as_int();
+					m_data[m_pickupType].action = [=] (Creature& a) { a.Repair(health); };
+				}
+				else if(m_pickupType == Pickup::MissileRefill)
+				{
+					int missiles = attr.as_int();
+					m_data[m_pickupType].action = std::bind(&Creature::CollectMissiles, _1, missiles);
+				}
+			}
+		}
+	}
+	else if(!strcmp("textureRect", node.name()))
+	{
+		if(!node.attribute("top").empty())
+		{
+			if(!node.attribute("left").empty())
+			{
+				if(!node.attribute("width").empty())
+				{
+					if(!node.attribute("height").empty())
+					{
+						int top = node.attribute("top").as_int();
+						int left = node.attribute("left").as_int();
+						int width = node.attribute("width").as_int();
+						int height = node.attribute("height").as_int();
+						m_data[m_pickupType].textureRect = sf::IntRect(top, left, width, height);
+					}
+				}
+			}
+		}
+	}
+	return true;
+}
 
 std::vector<PickupData> InitializePickupData()
 {
@@ -369,16 +420,109 @@ std::vector<PickupData> InitializePickupData()
     data[Pickup::FireRate].textureRect = sf::IntRect( 126, 121, 40, 40 );
     data[Pickup::FireRate].action = std::bind(&Creature::IncreaseFireRate, _1);
 
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file(pickupDataFile);
+	if(result)
+	{
+		pugi::xml_node pickups = doc.child("PickupData");
+		if(pickups)
+		{
+			for(pugi::xml_node pickup: pickups.children("Pickup"))
+			{
+				if(!pickup.attribute("type").empty())
+				{
+					std::size_t pickupType = PickupFindStringInEnum(pickup.attribute("type").as_string());
+					if(pickupType < Pickup::TypeCount)
+					{
+						PickupFileWalker_t pickupNodeWalker(data, pickupType);
+						pickup.traverse(pickupNodeWalker);
+					}
+				}
+			}
+		}
+	}
     return data;
 }
 
 //================================================================================//
 
+const char* ParticleEnumToString(size_t index)
+{
+	const char *result = "";
+	switch (index)
+	{
+		case Particle::Propellant:
+			result = "Propellant";
+			break;
+		case Particle::Smoke:
+			result = "Smoke";
+			break;
+		case Particle::EnginePower:
+			result = "EnginePower";
+			break;
+		default:
+			break;
+	}
+	return result;
+}
+
+std::size_t ParticleFindStringInEnum(const char *search)
+{
+	std::size_t index = Particle::ParticleCount;
+	const char *current = NULL;
+	for(int i = 0; i < Particle::ParticleCount; ++i)
+	{
+		current = ParticleEnumToString(i);
+		if(!strcmp(search, current))
+		{
+			index = i;
+			break;
+		}
+	}
+	return index;
+}
+
+bool ParticleFileWalker_t::for_each(pugi::xml_node& node)
+{
+	if(!strcmp("data", node.name()))
+	{
+		for (pugi::xml_attribute attr = node.first_attribute(); attr; attr = attr.next_attribute())
+		{
+			if(!strcmp("lifetime", attr.name()))
+			{
+				m_data[m_particleType].lifetime = sf::seconds(attr.as_float());
+			}
+		}
+	}
+	else if(!strcmp("color", node.name()))
+	{
+		if(!node.attribute("red").empty())
+		{
+			if(!node.attribute("green").empty())
+			{
+				if(!node.attribute("blue").empty())
+				{
+					int red = node.attribute("red").as_int();
+					int green = node.attribute("green").as_int();
+					int blue = node.attribute("blue").as_int();
+					int alpha = 255;
+					if(!node.attribute("alpha").empty())
+					{
+						alpha = node.attribute("alpha").as_int();
+					}
+					m_data[m_particleType].color = sf::Color(red, green, blue);
+				}
+			}
+		}
+	}
+	return true;
+}
+
 std::vector<ParticleData> InitializeParticleData()
 {
     std::vector<ParticleData> data( Particle::ParticleCount );
 
-    data[Particle::Propellant].color = sf::Color( 50, 230, 230 );
+	data[Particle::Propellant].color = sf::Color( 50, 230, 230 );
     data[Particle::Propellant].lifetime = sf::seconds( 0.5f );
 
     data[Particle::Smoke].color = sf::Color( 90, 90, 90 );
@@ -386,6 +530,28 @@ std::vector<ParticleData> InitializeParticleData()
 
     data[Particle::EnginePower].color = sf::Color( 50, 150, 230 );
     data[Particle::EnginePower].lifetime = sf::seconds( 0.2f );
+
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file(particleDataFile);
+	if(result)
+	{
+		pugi::xml_node particles = doc.child("ParticleData");
+		if(particles)
+		{
+			for(pugi::xml_node particle: particles.children("Particle"))
+			{
+				if(!particle.attribute("type").empty())
+				{
+					std::size_t particleType = ParticleFindStringInEnum(particle.attribute("type").as_string());
+					if(particleType < Particle::ParticleCount)
+					{
+						ParticleFileWalker_t particleNodeWalker(data, particleType);
+						particle.traverse(particleNodeWalker);
+					}
+				}
+			}
+		}
+	}
 
     return data;
 }

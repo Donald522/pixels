@@ -99,6 +99,20 @@ private:
 
 };
 
+struct ParticleFileWalker_t: pugi::xml_tree_walker
+{
+    ParticleFileWalker_t(std::vector<ParticleData> &data, std::size_t type)
+    : m_data(data)
+    , m_particleType(type)
+    {
+    }
+    virtual bool for_each(pugi::xml_node& node);
+private:
+    std::vector<ParticleData>&		m_data;
+    const std::size_t			m_particleType;
+
+};
+
 const char* CreatureEnumToString(size_t index);
 std::size_t CreatureFindStringInEnum(const char *search);
 

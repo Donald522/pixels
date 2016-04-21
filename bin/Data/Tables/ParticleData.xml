@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ParticleData>
+	<Particle type = "Propellant">
+		<data lifetime = "0.5"/>
+		<color red = "50" green = "230" blue = "230" alpha = "255"/>
+	</Particle>
+	<Particle type = "Smoke">
+		<data lifetime = "1"/>
+		<color red = "90" green = "90" blue = "90"/>
+	</Particle>
+	<Particle type = "EnginePower">
+		<data lifetime = "0.2"/>
+		<color red = "50" green = "150" blue = "230"/>
+	</Particle>
+</ParticleData>
